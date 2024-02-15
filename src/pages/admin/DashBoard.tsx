@@ -7,9 +7,19 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 export default function DashBoard() {
   const navigate = useNavigate();
-  const { mutate, isPending } = useMutation({
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("hongShengToken="))
+    ?.split("=")[1];
+
+  axios.defaults.headers.common["Authorization"] = token;
+
+  if (!token) navigate("/login");
+
+  const { mutate, isPending, data } = useMutation({
     mutationFn: () => api.auth.checkUser(),
     onError: (error) => {
       if (error) navigate("/login");
@@ -20,14 +30,6 @@ export default function DashBoard() {
       } else {
         toast.success("Welcome back!");
       }
-    },
-    onSettled: () => {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("hongShengToken="))
-        ?.split("=")[1];
-      axios.defaults.headers.common["Authorization"] = token;
-      if (!token) navigate("/login");
     },
   });
   useEffect(() => {
@@ -41,8 +43,8 @@ export default function DashBoard() {
         <Sidebar />
       </div>
       <div className="lg:col-span-5">
-        <Navbar />
-        <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <Navbar uid={data?.uid ?? ""} />
+        <div className="py-8 px-4 sm:px-8 lg:px-16">
           <Outlet />
         </div>
       </div>

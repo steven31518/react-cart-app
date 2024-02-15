@@ -1,4 +1,9 @@
-import { AreaChart, Layers, AppWindow } from "lucide-react";
+import {
+  ClipboardList,
+  TicketPercent,
+  PackageSearch,
+  Store,
+} from "lucide-react";
 import { ReactNode } from "react";
 
 type NavLink = {
@@ -10,17 +15,22 @@ type NavLink = {
 export const adminNavLinks: NavLink[] = [
   {
     href: "/admin/products",
-    label: "Products",
-    icon: <AppWindow />,
+    label: "產品管理",
+    icon: <PackageSearch />,
   },
   {
     href: "/admin/coupons",
-    label: "Coupons",
-    icon: <Layers />,
+    label: "折價卷",
+    icon: <TicketPercent />,
   },
   {
     href: "/admin/orders",
-    label: "Orders",
-    icon: <AreaChart />,
+    label: "訂單管理",
+    icon: <ClipboardList />,
+  },
+  {
+    href: "/store",
+    label: "返回賣場",
+    icon: <Store />,
   },
 ];

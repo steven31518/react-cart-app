@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { z } from "zod";
 import type { SignIn } from "@/components/LoginForm";
@@ -10,7 +9,10 @@ const signin_res_schema = z.object({
   token: z.string(),
   expired: z.number(),
 });
-const signOut_res_schema = z.string();
+const signOut_res_schema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+});
 
 const check_res_schema = z.object({
   success: z.boolean(),
