@@ -56,8 +56,16 @@ export default function LoginForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid grid-flow-row grid-rows-3 gap-4">
-          <CustomFormField name="username" control={form.control} />
-          <CustomFormFieldPassword name="password" control={form.control} />
+          <CustomFormField
+            label="帳號"
+            name="username"
+            control={form.control}
+          />
+          <CustomFormFieldPassword
+            label="密碼"
+            name="password"
+            control={form.control}
+          />
           <div className="flex justify-center items-center">
             <Button type="submit" className="w-48" disabled={isPending}>
               {isPending ? "Loading..." : "Login"}

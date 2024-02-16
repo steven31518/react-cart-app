@@ -38,7 +38,7 @@ export default function Navbar({ uid }: Props) {
           >
             <LogOut />
             <span className="capitalize ms-2">
-              {isPending ? "Signing out..." : "Sign out"}
+              {isPending ? "登出中..." : "登出"}
             </span>
           </Button>
         )}

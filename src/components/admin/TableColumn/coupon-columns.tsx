@@ -1,7 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { CheckCircle2 } from "lucide-react";
+import { XCircle } from "lucide-react";
 export interface couponType {
   title: string;
   percent: number;
@@ -55,8 +56,12 @@ export const coupon_columns: ColumnDef<couponType>[] = [
     header: "是否啟用",
     cell: ({ row }) => {
       return (
-        <div className="flex justify-center">
-          {row.original.is_enabled ? "啟用" : "未啟用"}
+        <div className="flex justify-center items-center">
+          {row.getValue("is_enabled") === 1 ? (
+            <CheckCircle2 className="text-green-500" />
+          ) : (
+            <XCircle className="text-destructive" />
+          )}
         </div>
       );
     },

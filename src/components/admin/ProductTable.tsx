@@ -9,12 +9,19 @@ export default function ProductTable() {
     queryFn: () => api.admin.getAdminProducts(),
     select: (data) => Object.values(data.products),
   });
-  if (isPending) return <div>Loading...</div>;
-  if (isSuccess)
-    return (
-      <div>
+
+  
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+  return (
+    <div>
+      {isSuccess && (
         <DataTable columns={products_columns} data={data} filterName="title" />
-      </div>
-    );
-  if (isError) return <div>{error.message}</div>;
+      )}
+    </div>
+  );
 }
