@@ -1,5 +1,6 @@
 import { z } from "zod";
 import axios from "axios";
+import { FileWithPath } from "react-dropzone";
 
 const getProductSchema = z.object({
   success: z.boolean(),
@@ -30,5 +31,34 @@ export const getAdminProducts = (apiPath: string) => {
     const validate = getProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return validate.data;
+  };
+};
+
+const uploadImageSchema = z.object({
+  success: z.boolean(),
+  imageUrl: z.string(),
+});
+export const uploadImage = (apiPath: string) => {
+  return async (files: FileWithPath[]) => {
+    const data = await Promise.all(
+      files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await axios<z.infer<typeof uploadImageSchema>>({
+          url: `/v2/api/${apiPath}/admin/upload`,
+          method: "POST",
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        return res.data;
+      })
+    );
+    const validate = z.array(uploadImageSchema).safeParse(data);
+
+    if (!validate.success) throw new Error(validate.error.message);
+    
+    return data;
   };
 };

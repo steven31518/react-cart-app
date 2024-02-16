@@ -16,7 +16,7 @@ type props = {
   className?: string;
 };
 
-export function DialogButton({
+export function DialogWrap({
   children,
   description,
   name,
