@@ -3,20 +3,8 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
-
-export interface Product {
-  category: string;
-  content: string;
-  description: string;
-  id: string;
-  is_enabled: number;
-  origin_price: number;
-  price: number;
-  title: string;
-  unit: string;
-  imageUrl: string;
-  imagesUrl: string[];
-}
+import type { Product } from "@/api/adim/products";
+import { Link } from "react-router-dom";
 
 export const products_columns: ColumnDef<Product>[] = [
   {
@@ -112,14 +100,22 @@ export const products_columns: ColumnDef<Product>[] = [
       );
     },
   },
-
-  //   {
-  //     accessorKey: "id",
-  //     header: () => {
-  //       return <ProductEditor />;
-  //     },
-  //     cell: ({ row }) => {
-  //       return <ProductEditor id={row.getValue("id")} />;
-  //     },
-  //   },
+  {
+    accessorKey: "id",
+    header: () => {
+      return (
+        <Link to="/admin/edit_product/create">
+          <Button variant={"outline"}>新增產品</Button>
+        </Link>
+      );
+    },
+    cell: ({ row }) => {
+      const id = row.getValue("id");
+      return (
+        <Link to={`/admin/edit_product/${id}`}>
+          <Button variant={"link"}>編輯</Button>
+        </Link>
+      );
+    },
+  },
 ];

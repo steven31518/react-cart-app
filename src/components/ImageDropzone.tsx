@@ -6,7 +6,7 @@ import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { AiOutlineClose } from "react-icons/ai";
 import { Separator } from "@/components/ui/separator";
-import { DialogWrap } from "./DialogWrap";
+import CardWrap from "./CardWrap";
 import { nanoid } from "nanoid";
 import ArtWork from "./ArtWork";
 import { useMutation } from "@tanstack/react-query";
@@ -53,7 +53,7 @@ export default function ImageDropzone() {
     [isFocused, isDragReject, isDragAccept]
   );
   const { addImage } = useImageDropzoneStore();
-  
+
   const { isPending, mutate } = useMutation({
     mutationFn: (files: FileWithPath[]) => api.admin.uploadImage(files),
     onError: (error) => {
@@ -107,9 +107,8 @@ export default function ImageDropzone() {
   }, [files]);
 
   return (
-    <DialogWrap
-      description="Make changes to your Files here. Click update when you're done."
-      name="新增圖片"
+    <CardWrap
+      description="Make changes to your Files here. Click update when you're done."     
       title="DropZone"
     >
       <section className="container-full max-h-screen flex flex-col space-y-4">
@@ -152,6 +151,6 @@ export default function ImageDropzone() {
           </Button>
         </div>
       </section>
-    </DialogWrap>
+    </CardWrap>
   );
 }

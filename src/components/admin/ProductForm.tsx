@@ -9,12 +9,16 @@ import {
   CustomFormFieldNum,
 } from "../FormComponents";
 import { Button } from "../ui/button";
+import { useImageDropzoneStore } from "@/utils/zustand";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api } from "@/api";
+import { UploadProduct } from "@/api/adim/products";
+import toast from "react-hot-toast";
+
 type Prop = {
-  id: string;
+  id: "create" | string;
 };
 export default function ProductForm({ id }: Prop) {
-  //todo:remove console.log
-  console.log(id);
   const formSchema = z.object({
     title: z
       .string()
@@ -33,10 +37,10 @@ export default function ProductForm({ id }: Prop) {
         message: "category must be less than 10 characters.",
       }),
     origin_price: z.number().min(1, {
-      message: "origin_price must be at least 1 characters.",
+      message: "金額不得為負且須大於0.",
     }),
     price: z.number().min(1, {
-      message: "origin_price must be at least 1 characters.",
+      message: "金額不得為負且須大於0.",
     }),
     unit: z
       .string()
@@ -52,29 +56,60 @@ export default function ProductForm({ id }: Prop) {
     imageUrl: z.string(),
     imagesUrl: z.array(z.string()),
   });
+  const { imageUrls, mainImageUrl, } =
+    useImageDropzoneStore();
+  const queryClient = useQueryClient();
 
-  type InputType = z.infer<typeof formSchema>;
+  const { data: product } = useQuery({
+    queryKey: ["getAllProducts", { type: "admin" }],
+    queryFn: () => api.admin.getAdminProducts(),
+    select: (data) =>
+      Object.values(data.products).find((product) => product.id === id),
+  });
 
-  const form = useForm<InputType>({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      category: "",
-      origin_price: 0,
-      price: 0,
-      unit: "",
-      description: "",
-      content: "",
-      is_enabled: 0,
-      imageUrl: "",
-      imagesUrl: [],
+      title: product?.title || "",
+      category: product?.category || "",
+      origin_price: product?.origin_price || 0,
+      price: product?.price || 0,
+      unit: product?.unit || "",
+      description: product?.description || "",
+      content: product?.content || "",
+      is_enabled: product?.is_enabled || 0,
+      imageUrl: mainImageUrl,
+      imagesUrl: imageUrls,
     },
     resetOptions: {
       keepDefaultValues: true,
     },
   });
-  function onSubmit(data: InputType) {
-    console.log(data);
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: ({ data, id }: UploadProduct) => {
+      if (id === "create") return api.admin.addProduct({ data: data });
+      return api.admin.updateProduct({ data: data, id: id });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getAllProducts", { type: "admin" }],
+      });
+    },
+  });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const data = {
+      ...values,
+      imageUrl: mainImageUrl,
+      imagesUrl: imageUrls,
+    };
+    mutate({ data: data, id: id });
   }
 
   return (
@@ -84,7 +119,6 @@ export default function ProductForm({ id }: Prop) {
         className="grid grid-flow-row grid-rows-10 gap-2"
       >
         <CustomFormField name="title" label="產品名稱" control={form.control} />
-
         <CustomFormField
           name="category"
           label="產品類別"
@@ -113,7 +147,9 @@ export default function ProductForm({ id }: Prop) {
           control={form.control}
         />
         <div className="flex justify-center items-center">
-          <Button className="w-48">確認送出</Button>
+          <Button className="w-48" type="submit" disabled={isPending}>
+            {isPending ? "上傳中..." : "確認送出"}
+          </Button>
         </div>
       </form>
     </Form>

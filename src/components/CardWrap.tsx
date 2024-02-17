@@ -24,7 +24,7 @@ export default function CardWrap({
   return (
     <Card
       className={cn(
-        "w-[350px] bg-muted rounded-md border border-border",
+        "w-[400px] bg-muted rounded-md border border-border",
         className
       )}
     >
