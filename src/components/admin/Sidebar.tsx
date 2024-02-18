@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export default function Sidebar() {
   return (
-    <aside className="py-4 px-8 bg-muted h-full">
+    <aside className="py-4 px-8 h-full">
       <h1>Admin</h1>
       <div className="flex flex-col mt-20 gap-y-4">
         {adminNavLinks.map((link) => (

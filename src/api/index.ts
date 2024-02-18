@@ -1,6 +1,7 @@
 import { signIn, signOut, checkUser } from "./adim/login";
 import {
   getAdminProducts,
+  getAdminPageProducts,
   uploadImage,
   updateProduct,
   addProduct,
@@ -17,6 +18,7 @@ export const api = {
   },
   admin: {
     getAdminProducts: getAdminProducts(apiPath),
+    getAdminPageProducts: getAdminPageProducts(apiPath),
     getAllCoupons: getAllCoupons(apiPath),
     uploadImage: uploadImage(apiPath),
     updateProduct: updateProduct(apiPath),

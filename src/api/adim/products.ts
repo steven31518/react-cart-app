@@ -1,25 +1,28 @@
 import { z } from "zod";
 import axios from "axios";
 import { FileWithPath } from "react-dropzone";
+const ProductSchema = z.object({
+  category: z.string(),
+  content: z.string(),
+  description: z.string(),
+  id: z.string(),
+  is_enabled: z.number(),
+  origin_price: z.number(),
+  price: z.number(),
+  title: z.string(),
+  unit: z.string(),
+  imageUrl: z.string(),
+  imagesUrl: z.array(z.string()),
+});
 
-const getProductSchema = z.object({
+const getAllProductSchema = z.object({
   success: z.boolean(),
-  products: z.record(
-    z.string(),
-    z.object({
-      category: z.string(),
-      content: z.string(),
-      description: z.string(),
-      id: z.string(),
-      is_enabled: z.number(),
-      origin_price: z.number(),
-      price: z.number(),
-      title: z.string(),
-      unit: z.string(),
-      imageUrl: z.string(),
-      imagesUrl: z.array(z.string()),
-    })
-  ),
+  products: z.record(z.string(), ProductSchema),
+});
+const getPageProductSchema = z.object({
+  messages: z.array(z.any()),
+  success: z.boolean(),
+  products: z.array(ProductSchema),
   pagination: z.object({
     total_pages: z.number(),
     current_page: z.number(),
@@ -32,7 +35,7 @@ const uploadSuccessSchema = z.object({
   success: z.boolean(),
   message: z.string(),
 });
-export type Product = z.infer<typeof getProductSchema>["products"]["string"];
+export type Product = z.infer<typeof ProductSchema>;
 export type NewProduct = Omit<Product, "id">;
 
 export type AddNewProduct = Record<"data", NewProduct>;
@@ -43,11 +46,11 @@ export interface UploadProduct extends AddNewProduct {
 
 export const getAdminProducts = (apiPath: string) => {
   return async () => {
-    const response = await axios<z.infer<typeof getProductSchema>>({
+    const response = await axios<z.infer<typeof getAllProductSchema>>({
       url: `/v2/api/${apiPath}/admin/products/all`,
       method: "GET",
     });
-    const validate = getProductSchema.safeParse(response.data);
+    const validate = getAllProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return validate.data;
   };
@@ -55,11 +58,12 @@ export const getAdminProducts = (apiPath: string) => {
 
 export const getAdminPageProducts = (apiPath: string) => {
   return async (page: string, category: string) => {
-    const response = await axios<z.infer<typeof getProductSchema>>({
-      url: `/v2/api/${apiPath}/products?page=${page}&category=${category}`,
+    const response = await axios<z.infer<typeof getPageProductSchema>>({
+      url: `/v2/api/${apiPath}/admin/products?page=${page}&category=${category}`,
       method: "GET",
     });
-    const validate = getProductSchema.safeParse(response.data);
+    console.log(response.data);
+    const validate = getPageProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return validate.data;
   };

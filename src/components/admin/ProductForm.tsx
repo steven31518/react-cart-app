@@ -101,7 +101,7 @@ export default function ProductForm({ id }: Prop) {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getAllProducts", { type: "admin" }],
+        queryKey:["getAllProducts", { type: "admin" }],
       });
     },
   });
@@ -161,7 +161,6 @@ export default function ProductForm({ id }: Prop) {
           control={form.control}
         />
         <div className="flex justify-center items-center">
-          
           <Button className="w-48" type="submit" disabled={isPending}>
             {isPending ? "上傳中..." : "確認送出"}
           </Button>

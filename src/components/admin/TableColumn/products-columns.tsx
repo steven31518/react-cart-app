@@ -1,6 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DeleteButton from "../DeleteButton";
 import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
 import type { Product } from "@/api/adim/products";
@@ -104,17 +105,23 @@ export const products_columns: ColumnDef<Product>[] = [
     accessorKey: "id",
     header: () => {
       return (
-        <Link to="/admin/edit_product/create">
-          <Button variant={"outline"}>新增產品</Button>
-        </Link>
+        <div className="flex items-center justify-center">
+          <Link to="/admin/edit_product/create">
+            <Button variant={"outline"}>新增產品</Button>
+          </Link>
+        </div>
       );
     },
     cell: ({ row }) => {
-      const id = row.getValue("id");
+      const id = row.getValue("id") as string;
+      const label = row.getValue("title") as string;
       return (
-        <Link to={`/admin/edit_product/${id}`}>
-          <Button variant={"link"}>編輯</Button>
-        </Link>
+        <div className="flex items-center justify-center gap-2">
+          <Link to={`/admin/edit_product/${id}`}>
+            <Button variant={"outline"}>編輯</Button>
+          </Link>
+          <DeleteButton id={id} deleteItem="產品" label={label}></DeleteButton>
+        </div>
       );
     },
   },

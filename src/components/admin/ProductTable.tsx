@@ -1,9 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api";
 import DataTable from "./DataTable";
 import { products_columns } from "./TableColumn/products-columns";
-import { api } from "@/api";
-import { useQuery } from "@tanstack/react-query";
 
 export default function ProductTable() {
+  // const [page, setPage] = useState<string>("1");
   const { data, isError, isPending, isSuccess, error } = useQuery({
     queryKey: ["getAllProducts", { type: "admin" }],
     queryFn: () => api.admin.getAdminProducts(),
@@ -21,10 +22,40 @@ export default function ProductTable() {
     return <div>{error.message}</div>;
   }
   return (
-    <div>
+    <main className="flex flex-col gap-4">
       {isSuccess && (
         <DataTable columns={products_columns} data={data} filter={filter} />
       )}
-    </div>
+      {/* <div className="flex justify-center items-center gap-4">
+        <Button
+          className="border border-border"
+          variant={"link"}
+          disabled={data.pagination.has_next}
+          onClick={() => setPage((data.pagination.current_page - 1).toString())}
+        >
+          <ArrowLeft />
+        </Button>
+        {Array.from({ length: data.pagination.total_pages }).map((_, i) => (
+          <Button
+            key={i}
+            onClick={() => setPage((i + 1).toString())}
+            className={cn("border border-border", {
+              "border-primary": data.pagination.current_page === i + 1,
+            })}
+            variant={"link"}
+          >
+            {i + 1}
+          </Button>
+        ))}
+        <Button
+          className="border border-border"
+          variant={"link"}
+          disabled={data.pagination.has_pre}
+          onClick={() => setPage((data.pagination.current_page + 1).toString())}
+        >
+          <ArrowRight />
+        </Button>
+      </div> */}
+    </main>
   );
 }

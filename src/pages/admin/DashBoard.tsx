@@ -39,12 +39,14 @@ export default function DashBoard() {
   if (isPending) return <div>validating...</div>;
   return (
     <main className="grid lg:grid-cols-6">
-      <div className="hidden lg:block lg:col-span-1 lg:min-h-screen">
-        <Sidebar />
+      <div className="hidden lg:block lg:col-span-1 lg:min-h-screen bg-muted">
+        <div className="fixed">
+          <Sidebar />
+        </div>
       </div>
       <div className="lg:col-span-5">
         <Navbar uid={data?.uid ?? ""} />
-        <div className="py-8 px-4 sm:px-8 lg:px-16">
+        <div className="py-8 px-4 sm:px-8 lg:px-16 ">
           <Outlet />
         </div>
       </div>

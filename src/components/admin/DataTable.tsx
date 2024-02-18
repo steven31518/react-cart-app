@@ -22,6 +22,13 @@ import {
 } from "@/components/ui/table";
 
 import { Input } from "../ui/input";
+import {
+  RxChevronLeft,
+  RxChevronRight,
+  RxDoubleArrowLeft,
+  RxDoubleArrowRight,
+} from "react-icons/rx";
+import { Button } from "../ui/button";
 type Filter = {
   value: string;
   label: string;
@@ -59,10 +66,11 @@ export default function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <section>
       <div className="flex items-center py-4 gap-4">
         {filter?.map(({ value, label }) => (
           <Input
+            key={value}
             placeholder={`篩選 ${label}`}
             value={(table.getColumn(value)?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
@@ -121,8 +129,45 @@ export default function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        {/* <TablePagination table={table} /> */}
       </div>
-    </div>
+      <div className="flex justify-end items-center space-x-2 p-4">
+        <Button
+          variant="outline"
+          className="hidden h-8 w-8 p-0 lg:flex"
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <span className="sr-only">Go to first page</span>
+          <RxDoubleArrowLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="h-8 w-8 p-0"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <span className="sr-only">Go to previous page</span>
+          <RxChevronLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="h-8 w-8 p-0"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <span className="sr-only">Go to next page</span>
+          <RxChevronRight className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="hidden h-8 w-8 p-0 lg:flex"
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <span className="sr-only">Go to last page</span>
+          <RxDoubleArrowRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </section>
   );
 }
