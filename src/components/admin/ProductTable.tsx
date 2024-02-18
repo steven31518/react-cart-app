@@ -9,8 +9,11 @@ export default function ProductTable() {
     queryFn: () => api.admin.getAdminProducts(),
     select: (data) => Object.values(data.products),
   });
+  const filter = [
+    { label: "產品", value: "title" },
+    { label: "類別", value: "category" },
+  ];
 
-  
   if (isPending) {
     return <div>Loading...</div>;
   }
@@ -20,7 +23,7 @@ export default function ProductTable() {
   return (
     <div>
       {isSuccess && (
-        <DataTable columns={products_columns} data={data} filterName="title" />
+        <DataTable columns={products_columns} data={data} filter={filter} />
       )}
     </div>
   );

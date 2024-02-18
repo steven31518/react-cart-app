@@ -7,7 +7,7 @@ export default function ImageUpload() {
   const { imageUrls, mainImageUrl, pickMainImage } = useImageDropzoneStore();
   return (
     <div>
-      <Tabs defaultValue="account" className="w-[400px]">
+      <Tabs defaultValue={!mainImageUrl?"upload":"view"} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="upload">上傳圖片</TabsTrigger>
           <TabsTrigger value="view">預覽圖片</TabsTrigger>
@@ -16,11 +16,11 @@ export default function ImageUpload() {
           <ImageDropzone />
         </TabsContent>
         <TabsContent value="view">
-          <div className="flex flex-col justify-start items-center rounded-md border gap-4 py-4">
-            <div className="flex flex-col items-center justify-center px-8 border rounded-lg w-[400px] aspect-[3/4]">
-              {!mainImageUrl ? (
-                "請於下方選擇主圖"
-              ) : (
+          <div className="flex flex-col justify-start items-center gap-4 py-4">
+            <div className="flex flex-col items-center justify-center px-4 border rounded-lg w-[400px] aspect-[3/4]">
+              {imageUrls.length === 0 ? (
+                "請上傳圖片"
+              ) : !mainImageUrl?"請選擇下方圖片":(
                 <ArtWork imageUrl={mainImageUrl} aspectRatio="portrait" />
               )}
             </div>

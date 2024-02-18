@@ -20,6 +20,13 @@ const getProductSchema = z.object({
       imagesUrl: z.array(z.string()),
     })
   ),
+  pagination: z.object({
+    total_pages: z.number(),
+    current_page: z.number(),
+    has_pre: z.boolean(),
+    has_next: z.boolean(),
+    category: z.string(),
+  }),
 });
 const uploadSuccessSchema = z.object({
   success: z.boolean(),
@@ -38,6 +45,18 @@ export const getAdminProducts = (apiPath: string) => {
   return async () => {
     const response = await axios<z.infer<typeof getProductSchema>>({
       url: `/v2/api/${apiPath}/admin/products/all`,
+      method: "GET",
+    });
+    const validate = getProductSchema.safeParse(response.data);
+    if (!validate.success) throw new Error(validate.error.message);
+    return validate.data;
+  };
+};
+
+export const getAdminPageProducts = (apiPath: string) => {
+  return async (page: string, category: string) => {
+    const response = await axios<z.infer<typeof getProductSchema>>({
+      url: `/v2/api/${apiPath}/products?page=${page}&category=${category}`,
       method: "GET",
     });
     const validate = getProductSchema.safeParse(response.data);

@@ -74,11 +74,11 @@ export default function ImageDropzone() {
 
   const thumbs = files.map((file, i) => (
     <li key={file.id}>
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-4 p-4">
         <div className="col-span-4">
           <ArtWork imageUrl={file.preview} width={100} aspectRatio="portrait" />
         </div>
-        <div className="col-span-8 flex flex-col justify-end gap-4">
+        <div className="col-span-8 flex flex-col items-center justify-center gap-4">
           <span className="text-xs">
             {i + 1}.{file.name}
           </span>
@@ -87,9 +87,10 @@ export default function ImageDropzone() {
             onClick={() => {
               setFiles(files.filter((f) => f.id !== file.id));
             }}
+            className="w-48"
           >
-            <AiOutlineClose className=" text-destructive text-2xl space-x-3 space-y-3 hover:opacity-80 cursor-pointer" />
-            Delete
+            <AiOutlineClose className=" text-destructive text-xl space-x-3 space-y-3 hover:opacity-80 cursor-pointer" />
+            刪除
           </Button>
         </div>
       </div>
@@ -108,8 +109,9 @@ export default function ImageDropzone() {
 
   return (
     <CardWrap
-      description="Make changes to your Files here. Click update when you're done."     
-      title="DropZone"
+      description="請拖曳多個圖片至下方上傳，檔案大小不超過2MB."
+      title="上傳商品圖片"
+      className="w-full"
     >
       <section className="container-full max-h-screen flex flex-col space-y-4">
         <div
@@ -121,9 +123,9 @@ export default function ImageDropzone() {
           })}
         >
           <input {...getInputProps()} />
-          {isDragAccept && <p>All files will be accepted</p>}
-          {isDragReject && <p>Some files will be rejected</p>}
-          {!isDragActive && <p>Drop some files here ...</p>}
+          {isDragAccept && <p className="text-green-500">所有檔案可上傳</p>}
+          {isDragReject && <p className="text-destructive">有檔案格式不符合</p>}
+          {!isDragActive && <p>請把檔案拖曳進來或直接點選 ...</p>}
         </div>
         {files.length > 0 && (
           <div className="rounded-md border w-full">
@@ -138,16 +140,22 @@ export default function ImageDropzone() {
             </ScrollArea>
           </div>
         )}
-        <div className="flex flex-row justify-end space-x-2">
+        <div className="flex flex-row justify-center space-x-2">
           <Button
             type="button"
             variant={"outline"}
             onClick={() => setFiles([])}
+            className="w-48"
           >
-            clean
+            清除
           </Button>
-          <Button type="button" onClick={handleUpload} disabled={isPending}>
-            {isPending ? "Uploading..." : "Upload"}
+          <Button
+            type="button"
+            onClick={handleUpload}
+            disabled={isPending}
+            className="w-48"
+          >
+            {isPending ? "上傳中..." : "上傳"}
           </Button>
         </div>
       </section>

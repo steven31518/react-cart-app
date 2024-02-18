@@ -14,6 +14,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api";
 import { UploadProduct } from "@/api/adim/products";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 type Prop = {
   id: "create" | string;
@@ -56,8 +57,9 @@ export default function ProductForm({ id }: Prop) {
     imageUrl: z.string(),
     imagesUrl: z.array(z.string()),
   });
-  const { imageUrls, mainImageUrl, } =
+  const { imageUrls, mainImageUrl, removeAllImage, addImage, pickMainImage } =
     useImageDropzoneStore();
+
   const queryClient = useQueryClient();
 
   const { data: product } = useQuery({
@@ -111,12 +113,24 @@ export default function ProductForm({ id }: Prop) {
     };
     mutate({ data: data, id: id });
   }
+  useEffect(() => {
+    if (id) removeAllImage();
+    addImage(product?.imagesUrl || []);
+    pickMainImage(product?.imageUrl || "");
+  }, [
+    addImage,
+    id,
+    pickMainImage,
+    product?.imageUrl,
+    product?.imagesUrl,
+    removeAllImage,
+  ]);
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-flow-row grid-rows-10 gap-2"
+        className="grid grid-flow-row grid-rows-10 gap-2 px-4"
       >
         <CustomFormField name="title" label="產品名稱" control={form.control} />
         <CustomFormField
@@ -147,6 +161,7 @@ export default function ProductForm({ id }: Prop) {
           control={form.control}
         />
         <div className="flex justify-center items-center">
+          
           <Button className="w-48" type="submit" disabled={isPending}>
             {isPending ? "上傳中..." : "確認送出"}
           </Button>

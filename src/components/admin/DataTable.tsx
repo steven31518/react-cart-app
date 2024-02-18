@@ -22,17 +22,20 @@ import {
 } from "@/components/ui/table";
 
 import { Input } from "../ui/input";
-
+type Filter = {
+  value: string;
+  label: string;
+};
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  filterName?: string;
+  filter?: Filter[];
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
-  filterName,
+  filter,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -57,19 +60,17 @@ export default function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
-        {filterName && (
+      <div className="flex items-center py-4 gap-4">
+        {filter?.map(({ value, label }) => (
           <Input
-            placeholder={`Search ${filterName}`}
-            value={
-              (table.getColumn(filterName)?.getFilterValue() as string) ?? ""
-            }
+            placeholder={`篩選 ${label}`}
+            value={(table.getColumn(value)?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn(filterName)?.setFilterValue(event.target.value)
+              table.getColumn(value)?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
-        )}
+        ))}
       </div>
       <div className="rounded-md border">
         <Table>

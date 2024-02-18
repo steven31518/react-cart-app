@@ -21,7 +21,7 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
         opts={{
           align: "start",
         }}
-        className="w-full max-w-sm"
+        className="max-w-sm"
       >
         <CarouselContent>
           {imageUrls.map((url) => (
@@ -32,7 +32,7 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
                 "sm:basis-1/3": imageUrls.length >= 3,
               })}
             >
-              <div className="p-1">
+              <div className="">
                 <Card>
                   <CardContent className="flex aspect-square items-center justify-center p-0">
                     <ArtWork
@@ -48,8 +48,10 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <div className="flex justify-center item-center gap-4">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
       </Carousel>
     </section>
   );
