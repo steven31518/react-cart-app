@@ -15,7 +15,7 @@ export default function ProductCard({ data }: { data: Product }) {
         <Badge>{category}</Badge>
       </div>
       <p className="font-bold">{title}</p>
-      <p className="text-sm">{description}</p>
+      <p className="text-xs">{description}</p>
       <p className="">
         NT$:{price}/<s className="text-sm ms-1 opacity-75">{origin_price}</s>
       </p>

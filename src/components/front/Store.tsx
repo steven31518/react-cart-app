@@ -18,7 +18,7 @@ export default function Store() {
     return (
       <main>
         <section>
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 grid-rows-[repeat(5,auto)] gap-x-4 gap-y-4 lg:gap-y-2">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-x-4 gap-y-4 lg:gap-y-2">
             {data.map((product) => {
               return <ProductCard key={product.id} data={product} />;
             })}
