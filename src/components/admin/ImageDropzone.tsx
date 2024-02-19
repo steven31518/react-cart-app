@@ -1,14 +1,14 @@
 import { FileWithPath } from "react-dropzone";
 import { useEffect, useMemo, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useDropzone } from "react-dropzone";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { AiOutlineClose } from "react-icons/ai";
 import { Separator } from "@/components/ui/separator";
-import CardWrap from "./CardWrap";
+import CardWrap from "../CardWrap";
 import { nanoid } from "nanoid";
-import ArtWork from "./ArtWork";
+import ArtWork from "../ArtWork";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/api";
 import toast from "react-hot-toast";

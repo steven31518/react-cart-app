@@ -69,6 +69,19 @@ export const getAdminPageProducts = (apiPath: string) => {
   };
 };
 
+export const getClientPageProducts = (apiPath: string) => {
+  return async (page: string, category: string) => {
+    const response = await axios<z.infer<typeof getPageProductSchema>>({
+      url: `/v2/api/${apiPath}/products?page=${page}&category=${category}`,
+      method: "GET",
+    });
+    console.log(response.data);
+    const validate = getPageProductSchema.safeParse(response.data);
+    if (!validate.success) throw new Error(validate.error.message);
+    return validate.data;
+  };
+};
+
 const uploadImageSchema = z.object({
   success: z.boolean(),
   imageUrl: z.string(),

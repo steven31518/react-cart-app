@@ -40,7 +40,7 @@ export default function DashBoard() {
   return (
     <main className="grid lg:grid-cols-6">
       <div className="hidden lg:block lg:col-span-1 lg:min-h-screen bg-muted">
-        <div className="fixed">
+        <div className="fixed bg-opacity-100">
           <Sidebar />
         </div>
       </div>

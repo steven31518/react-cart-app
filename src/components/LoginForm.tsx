@@ -39,12 +39,17 @@ export default function LoginForm() {
       toast.error(error.message);
     },
     onSuccess: (data) => {
-      const { token, expired } = data;
-      document.cookie = `hongShengToken=${token}; expires=${new Date(
-        expired
-      )};`;
-      form.reset();
-      navigate("/admin");
+      if (!data.success) {
+        toast.error(data.message);
+        return;
+      } else {
+        const { token, expired } = data;
+        document.cookie = `hongShengToken=${token}; expires=${new Date(
+          expired
+        )};`;
+        form.reset();
+        navigate("/admin/products");
+      }
     },
   });
 

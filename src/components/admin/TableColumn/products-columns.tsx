@@ -6,6 +6,7 @@ import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
 import type { Product } from "@/api/adim/products";
 import { Link } from "react-router-dom";
+import { PlusCircle } from "lucide-react";
 
 export const products_columns: ColumnDef<Product>[] = [
   {
@@ -107,7 +108,10 @@ export const products_columns: ColumnDef<Product>[] = [
       return (
         <div className="flex items-center justify-center">
           <Link to="/admin/edit_product/create">
-            <Button variant={"outline"}>新增產品</Button>
+            <Button>
+              <PlusCircle />
+              <span className="ms-2">新增產品</span>
+            </Button>
           </Link>
         </div>
       );

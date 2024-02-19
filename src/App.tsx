@@ -14,6 +14,9 @@ const Login = lazy(() => import("./pages/LoginPage"));
 const EditProduct = lazy(
   () => import("./pages/admin/prodocts/EditProductPage")
 );
+const Layout = lazy(() => import("./pages/front/Layout"));
+
+const Store = lazy(() => import("./pages/front/StorePage"));
 function App() {
   return (
     <Suspense>
@@ -24,6 +27,9 @@ function App() {
           <Route path="edit_product/:id" element={<EditProduct />} />
           <Route path="coupons" element={<AdminCoupons />} />
           <Route path="orders" element={<AdminOrder />} />
+        </Route>
+        <Route path="*" element={<Layout />}>
+          <Route path="products/:category" element={<Store />} />
         </Route>
       </Routes>
     </Suspense>

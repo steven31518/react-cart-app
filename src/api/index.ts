@@ -6,6 +6,7 @@ import {
   updateProduct,
   addProduct,
   deleteProduct,
+  getClientPageProducts,
 } from "./adim/products";
 import { getAllCoupons } from "./adim/coupon";
 const apiPath: string = import.meta.env.VITE_API_PATH;
@@ -24,5 +25,8 @@ export const api = {
     updateProduct: updateProduct(apiPath),
     addProduct: addProduct(apiPath),
     deleteProduct: deleteProduct(apiPath),
+  },
+  client: {
+    getClientPageProducts: getClientPageProducts(apiPath),
   },
 };
