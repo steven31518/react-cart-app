@@ -1,15 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { productCategroyLinks } from "@/utils/store-links";
 import { cn } from "@/lib/utils";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
@@ -20,18 +17,25 @@ export function Navigation() {
         <NavigationMenuItem>
           <Link to="/about">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              關於我們
+              關於
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link to="/mail">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              聯絡我們
+              聯絡
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
+          <Link to="/login">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              管理
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger>產品列表</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -42,7 +46,7 @@ export function Navigation() {
               ))}
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
       </NavigationMenuList>
     </NavigationMenu>
   );

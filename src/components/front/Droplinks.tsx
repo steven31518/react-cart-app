@@ -12,7 +12,12 @@ import {
 export default function Droplinks() {
   return (
     <LinksDropdownWrap>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion
+        type="single"
+        defaultValue="item-1"
+        collapsible={true}
+        className="w-full"
+      >
         <AccordionItem value="item-1">
           <AccordionTrigger>商品列表</AccordionTrigger>
           <AccordionContent>
@@ -32,16 +37,6 @@ export default function Droplinks() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <DropdownMenuItem>
-        <Link to={"/about"} className="flex items-center gap-x-2 ">
-          <span className="capitalize">關於我</span>
-        </Link>
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <Link to={"/email"} className="flex items-center gap-x-2 ">
-          <span className="capitalize">聯絡我</span>
-        </Link>
-      </DropdownMenuItem>
     </LinksDropdownWrap>
   );
 }

@@ -19,7 +19,6 @@ export default function ArtWork({
       <img
         src={imageUrl}
         alt={imageUrl}
-        loading="lazy"
         width={width}
         height={height}
         className={cn(

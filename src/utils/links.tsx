@@ -29,7 +29,7 @@ export const adminNavLinks: NavLink[] = [
     icon: <ClipboardList />,
   },
   {
-    href: "/store",
+    href: "/",
     label: "返回賣場",
     icon: <Store />,
   },

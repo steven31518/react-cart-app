@@ -17,10 +17,12 @@ export default function Store() {
   if (isSuccess) {
     return (
       <main>
-        <section className="grid md:grid-cols-2 lg:grid-cols-4 grid-rows-[repeat(6,auto)] gap-x-4 gap-y-4 lg:gap-y-1 ">
-          {data.map((product) => {
-            return <ProductCard key={product.id} data={product} />;
-          })}
+        <section>
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 grid-rows-[repeat(5,auto)] gap-x-4 gap-y-4 lg:gap-y-2">
+            {data.map((product) => {
+              return <ProductCard key={product.id} data={product} />;
+            })}
+          </div>
         </section>
       </main>
     );

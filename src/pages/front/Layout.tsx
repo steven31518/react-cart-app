@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/front/Navbar";
-
+import Sidebar from "@/components/front/Sidebar";
 export default function Layout() {
   return (
     <main className="grid lg:grid-cols-6">
-      <div className="lg:col-span-6">
-        <Navbar />
+      <div className="hidden lg:block lg:col-span-1 lg:min-h-screen bg-muted">
+        <Sidebar />
       </div>
-      <div className="pt-24 px-4 sm:px-8 lg:px-8 lg:col-span-6">
-        <Outlet />
+      <div className="lg:col-span-5">
+        <Navbar />
+        <div className="py-8 px-4 sm:px-4 lg:px-8 ">
+          <Outlet />
+        </div>
       </div>
     </main>
   );
