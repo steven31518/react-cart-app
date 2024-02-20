@@ -27,24 +27,20 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
           {imageUrls.map((url) => (
             <CarouselItem
               key={url}
-              className={cn("md:basis-1/2 lg:basis-1/3", {
-                "sm:basis-1/2": imageUrls.length === 2,
-                "sm:basis-1/3": imageUrls.length >= 3,
+              className={cn("basis-1/3", {
+                "basis-1/2": imageUrls.length < 3,
+                "basis-1/3": imageUrls.length >= 3,
               })}
             >
-              <div className="">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-0">
-                    <ArtWork
-                      imageUrl={url}
-                      aspectRatio="square"
-                      onClick={() =>
-                        pickMainImage ? pickMainImage(url) : null
-                      }
-                    />
-                  </CardContent>
-                </Card>
-              </div>
+              <Card>
+                <CardContent className="flex items-center justify-center p-0">
+                  <ArtWork
+                    imageUrl={url}
+                    aspectRatio="square"
+                    onClick={() => (pickMainImage ? pickMainImage(url) : null)}
+                  />
+                </CardContent>
+              </Card>
             </CarouselItem>
           ))}
         </CarouselContent>

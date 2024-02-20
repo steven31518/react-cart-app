@@ -17,6 +17,8 @@ const EditProduct = lazy(
 const Layout = lazy(() => import("./pages/front/Layout"));
 
 const Store = lazy(() => import("./pages/front/StorePage"));
+
+const Detail = lazy(() => import("./pages/front/ProductPage"));
 function App() {
   return (
     <Suspense>
@@ -30,6 +32,7 @@ function App() {
         </Route>
         <Route path="*" element={<Layout />}>
           <Route path="products/:category" element={<Store />} />
+          <Route path="product/:id" element={<Detail />} />
         </Route>
       </Routes>
     </Suspense>

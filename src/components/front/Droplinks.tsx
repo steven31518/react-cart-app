@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default function Droplinks() {
+export default function ClientDropdownlinks() {
   return (
     <LinksDropdownWrap>
       <Accordion

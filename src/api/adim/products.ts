@@ -1,7 +1,7 @@
 import { z } from "zod";
 import axios from "axios";
 import { FileWithPath } from "react-dropzone";
-const ProductSchema = z.object({
+export const ProductSchema = z.object({
   category: z.string(),
   content: z.string(),
   description: z.string(),
@@ -18,6 +18,10 @@ const ProductSchema = z.object({
 const getAllProductSchema = z.object({
   success: z.boolean(),
   products: z.record(z.string(), ProductSchema),
+});
+const getProductSchema = z.object({
+  success: z.boolean(),
+  product: ProductSchema,
 });
 const getPageProductSchema = z.object({
   messages: z.array(z.any()),
@@ -37,9 +41,7 @@ const uploadSuccessSchema = z.object({
 });
 export type Product = z.infer<typeof ProductSchema>;
 export type NewProduct = Omit<Product, "id">;
-
 export type AddNewProduct = Record<"data", NewProduct>;
-//{data:{},id:string}
 export interface UploadProduct extends AddNewProduct {
   id: string;
 }
@@ -145,6 +147,18 @@ export const deleteProduct = (apiPath: string) => {
       method: "DELETE",
     });
     const validate = uploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) throw new Error(validate.error.message);
+    return response.data;
+  };
+};
+
+export const getProductWithId = (apiPath: string) => {
+  return async (id: string) => {
+    const response = await axios<z.infer<typeof getProductSchema>>({
+      url: `/v2/api/${apiPath}/product/${id}`,
+      method: "GET",
+    });
+    const validate = getProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return response.data;
   };

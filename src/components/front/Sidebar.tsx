@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { productCategroyLinks } from "@/utils/store-links";
 import { Button } from "../ui/button";
-export default function Sidebar() {
+export default function ClientSidebar() {
   return (
     <aside className="py-4 px-8 h-full fixed w-1/6">
       <h1 className="text-2xl">logo</h1>
@@ -25,7 +25,7 @@ export default function Sidebar() {
                   >
                     <Button variant={"link"} className="w-36" size="lg">
                       {link.icon}
-                      <span className="capitalize">{link.title}</span>
+                      <span className="capitalize ms-2">{link.title}</span>
                     </Button>
                   </Link>
                 );

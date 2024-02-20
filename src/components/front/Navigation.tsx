@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,7 +8,9 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
+import { Mail } from "lucide-react";
+import { BookOpenText } from "lucide-react";
+import { ServerCog } from "lucide-react";
 export function Navigation() {
   return (
     <NavigationMenu>
@@ -17,21 +18,24 @@ export function Navigation() {
         <NavigationMenuItem>
           <Link to="/about">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              關於
+              <BookOpenText />
+              <span className="hidden md:block ms-2">關於我</span>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link to="/mail">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              聯絡
+              <Mail />
+              <span className="hidden md:block ms-2">聯絡資訊</span>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link to="/login">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              管理
+              <ServerCog />
+              <span className="hidden md:block ms-2">管理產品</span>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

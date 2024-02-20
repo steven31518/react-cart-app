@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/front/Navbar";
-import Sidebar from "@/components/front/Sidebar";
+import ClientSidebar from "@/components/front/Sidebar";
 export default function Layout() {
   return (
     <main className="grid lg:grid-cols-6">
       <div className="hidden lg:block lg:col-span-1 lg:min-h-screen bg-muted">
-        <Sidebar />
+        <ClientSidebar />
       </div>
       <div className="lg:col-span-5">
         <Navbar />
