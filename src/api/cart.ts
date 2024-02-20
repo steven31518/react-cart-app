@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from "zod";
 import { ProductSchema } from "./adim/products";
 
+
 export type PostCart = {
   data: {
     product_id: string;
@@ -17,6 +18,14 @@ const AddCartSchema = z.object({
     total: z.number(),
     final_total: z.number(),
     product: ProductSchema,
+  }),
+});
+const PutCartSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+  data: z.object({
+    product_id: z.string(),
+    qty: z.number(),
   }),
 });
 
@@ -73,6 +82,21 @@ export const getCart = (apiPath: string) => {
     const validate = GetCartSchema.safeParse(response.data);
     if (!validate.success) {
       console.log(validate.error.message);
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+};
+
+export const putCart = (apiPath: string) => {
+  return async (data: PostCart) => {
+    const response = await axios<z.infer<typeof PutCartSchema>>({
+      url: `/v2/api/${apiPath}/cart/${data.data.product_id}`,
+      method: "PUT",
+      data: data,
+    });
+    const validate = PutCartSchema.safeParse(response.data);
+    if (!validate.success) {
       throw new Error(validate.error.message);
     }
     return validate.data;

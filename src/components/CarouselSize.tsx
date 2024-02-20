@@ -21,7 +21,7 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
         opts={{
           align: "start",
         }}
-        className="max-w-sm"
+        className="max-w-lg"
       >
         <CarouselContent>
           {imageUrls.map((url) => (
