@@ -27,7 +27,8 @@ export default function SheetWarp({ children, status }: Props) {
       <SheetTrigger asChild>
         <Button
           variant="outline"
-          className="rounded-full relative aspect-square p-2 h-12"
+          size="icon"
+          className="rounded-full relative"
         >
           <ShoppingCart className="text-2xl" />
           <Badge className="absolute top-0 left-8 rounded-full bg-red-500">
@@ -44,12 +45,12 @@ export default function SheetWarp({ children, status }: Props) {
               : "請先加入商品"}
           </SheetDescription>
         </SheetHeader>
-        <ScrollArea className="w-full h-5/6 max-h-screen px-2">
+        <ScrollArea className="w-full h-5/6 max-h-screen px-2 py-4">
           {children}
         </ScrollArea>
         <SheetFooter>
           {status && status > 0 ? (
-            <div className="w-full flex justify-center items-center gap-4">
+            <div className="w-full flex justify-center items-center gap-4 py-4">
               <SheetClose asChild>
                 <CartDeleteButton
                   name="清空購物車"

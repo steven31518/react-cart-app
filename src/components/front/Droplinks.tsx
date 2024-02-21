@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { productCategroyLinks } from "@/utils/store-links";
+import { productCategroyLinks, discountLinks } from "@/utils/store-links";
 import LinksDropdownWrap from "@/components/LinksDropdownWarp";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import {
@@ -22,6 +22,24 @@ export default function ClientDropdownlinks() {
           <AccordionTrigger>商品列表</AccordionTrigger>
           <AccordionContent>
             {productCategroyLinks.map((link) => {
+              return (
+                <DropdownMenuItem key={link.href}>
+                  <Link
+                    to={link.href}
+                    className="flex items-center gap-x-2 w-full"
+                  >
+                    {link.icon}
+                    <span className="capitalize">{link.title}</span>
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>優惠專區</AccordionTrigger>
+          <AccordionContent>
+            {discountLinks.map((link) => {
               return (
                 <DropdownMenuItem key={link.href}>
                   <Link
