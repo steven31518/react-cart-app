@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useDebounce } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { api } from "@/api";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -21,24 +21,24 @@ export default function CountButton({
   className,
   isActiveButton,
   id,
-  isUseDebounce = false,
+  isUseDebounce,
 }: Props) {
   const [countQty, setcountQty] = useState<number>(qty);
-
-  const [value] = useDebounce(countQty, 1000);
-
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: (data: PostCart) => {
-      if (isUseDebounce) return api.client.putCart(data);
-      return api.client.postToCart(data);
+      if (isUseDebounce) {
+        return api.client.putCart(data);
+      } else {
+        return api.client.postToCart(data);
+      }
     },
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
       if (!data.success) toast.error(data.message);
-      toast.success("已加入購物車");
+      toast.success(data.message);
     },
     onSettled: () => {
       queryClient.invalidateQueries({
@@ -46,6 +46,10 @@ export default function CountButton({
       });
     },
   });
+  const debounced = useDebouncedCallback(
+    () => mutate({ data: { product_id: id, qty: countQty } }),
+    500
+  );
   return (
     <div className="grid grid-flow-row grid-row-2 gap-4">
       <div
@@ -55,30 +59,38 @@ export default function CountButton({
         )}
       >
         <Button
-          variant={"outline"}
           type="button"
           className="rounded-full p-3"
           id={`${id}-button-minus`}
           size="icon"
-          onClick={() => setcountQty((pre) => (pre - 1 < 1 ? 1 : pre - 1))}
+          onClick={() => {
+            setcountQty((pre) => (pre - 1 < 1 ? 1 : pre - 1));
+            if (isUseDebounce) debounced();
+          }}
           disabled={isPending}
         >
           <LuMinus />
         </Button>
-        <Input
-          type="number"
-          className="text-center text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
-          placeholder={countQty.toString()}
-          value={countQty}
-          readOnly
-        />
+        {isPending ? (
+          <div className="text-center text-lg my-auto w-32"><p>loading...</p></div>
+        ) : (
+          <Input
+            type="number"
+            className="text-center text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
+            placeholder={countQty.toString()}
+            value={countQty}
+            readOnly
+          />
+        )}
         <Button
-          variant={"outline"}
           type="button"
           className="rounded-full p-3"
           id={`${id}-button-plus`}
           size="icon"
-          onClick={() => setcountQty((pre) => pre + 1)}
+          onClick={() => {
+            setcountQty((pre) => pre + 1);
+            if (isUseDebounce) debounced();
+          }}
           disabled={isPending}
         >
           <LuPlus />

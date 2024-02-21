@@ -1,7 +1,7 @@
 import axios from "axios";
 import { z } from "zod";
 import { ProductSchema } from "./adim/products";
-
+import { UploadSuccessSchema } from "./adim/products";
 
 export type PostCart = {
   data: {
@@ -93,7 +93,12 @@ export const putCart = (apiPath: string) => {
     const response = await axios<z.infer<typeof PutCartSchema>>({
       url: `/v2/api/${apiPath}/cart/${data.data.product_id}`,
       method: "PUT",
-      data: data,
+      data: {
+        data: {
+          product_id: data.data.product_id,
+          qty: data.data.qty,
+        },
+      },
     });
     const validate = PutCartSchema.safeParse(response.data);
     if (!validate.success) {
@@ -102,3 +107,17 @@ export const putCart = (apiPath: string) => {
     return validate.data;
   };
 };
+
+export function deleteCartItem(apiPath: string) {
+  return async (id: string) => {
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
+      url: `/v2/api/${apiPath}/cart/${id}`,
+      method: "DELETE",
+    });
+    const validate = UploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}

@@ -1,6 +1,10 @@
 import { z } from "zod";
 import axios from "axios";
 import { FileWithPath } from "react-dropzone";
+export const UploadSuccessSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+});
 export const ProductSchema = z.object({
   category: z.string(),
   content: z.string(),
@@ -35,10 +39,7 @@ const getPageProductSchema = z.object({
     category: z.string(),
   }),
 });
-const uploadSuccessSchema = z.object({
-  success: z.boolean(),
-  message: z.string(),
-});
+
 export type Product = z.infer<typeof ProductSchema>;
 export type NewProduct = Omit<Product, "id">;
 export type AddNewProduct = Record<"data", NewProduct>;
@@ -115,12 +116,12 @@ export const uploadImage = (apiPath: string) => {
 
 export const addProduct = (apiPath: string) => {
   return async (product: AddNewProduct) => {
-    const response = await axios<z.infer<typeof uploadSuccessSchema>>({
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
       url: `/v2/api/${apiPath}/admin/product`,
       method: "POST",
       data: product,
     });
-    const validate = uploadSuccessSchema.safeParse(response.data);
+    const validate = UploadSuccessSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return response.data;
   };
@@ -129,12 +130,12 @@ export const updateProduct = (apiPath: string) => {
   return async (product: UploadProduct) => {
     const { id } = product;
 
-    const response = await axios<z.infer<typeof uploadSuccessSchema>>({
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
       url: `/v2/api/${apiPath}/admin/product/${id}`,
       method: "PUT",
       data: product,
     });
-    const validate = uploadSuccessSchema.safeParse(response.data);
+    const validate = UploadSuccessSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return response.data;
   };
@@ -142,11 +143,11 @@ export const updateProduct = (apiPath: string) => {
 
 export const deleteProduct = (apiPath: string) => {
   return async (id: string) => {
-    const response = await axios<z.infer<typeof uploadSuccessSchema>>({
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
       url: `/v2/api/${apiPath}/admin/product/${id}`,
       method: "DELETE",
     });
-    const validate = uploadSuccessSchema.safeParse(response.data);
+    const validate = UploadSuccessSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return response.data;
   };
