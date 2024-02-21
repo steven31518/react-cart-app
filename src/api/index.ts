@@ -10,7 +10,13 @@ import {
   getProductWithId,
 } from "./adim/products";
 import { getAllCoupons } from "./adim/coupon";
-import { postToCart, getCart, putCart, deleteCartItem } from "./cart";
+import {
+  postToCart,
+  getCart,
+  putCart,
+  deleteCartItem,
+  deleteCart,
+} from "./cart";
 const apiPath: string = import.meta.env.VITE_API_PATH;
 
 export const api = {
@@ -35,5 +41,6 @@ export const api = {
     getCart: getCart(apiPath),
     putCart: putCart(apiPath),
     deleteCartItem: deleteCartItem(apiPath),
+    deleteCart: deleteCart(apiPath),
   },
 };

@@ -43,9 +43,9 @@ export default function ProductDetail() {
               )}
             </div>
             <div className="grid grid-rows-subgrid row-span-2 px-2">
-              <div className="flex flex-col justify-end items-start gap-y-4">
+              <div className="flex flex-col justify-end items-start gap-y-4 ">
                 <div className="flex space-y-2">
-                  <p className="text-2xl">{data.title}</p>
+                  <h1 className="text-2xl">{data.title}</h1>
                 </div>
                 <p className="text-md">{data.description}</p>
                 <p className="text-2xl">
@@ -55,7 +55,12 @@ export default function ProductDetail() {
                 <Separator />
               </div>
               <div className="flex flex-col justify-center items-center gap-4">
-                <CountButton qty={1} showActiveButton={true} id={data.id} isUseDebounce={false}/>
+                <CountButton
+                  qty={1}
+                  showActiveButton={true}
+                  id={data.id}
+                  isUseDebounce={false}
+                />
               </div>
             </div>
           </div>

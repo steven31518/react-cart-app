@@ -9,7 +9,7 @@ import {
   CustomFormFieldNum,
 } from "../FormComponents";
 import { Button } from "../ui/button";
-import { useImageDropzoneStore } from "@/utils/zustand";
+import { useImageDropzoneStore } from "@/lib/zustand";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api";
 import { UploadProduct } from "@/api/adim/products";
@@ -101,7 +101,7 @@ export default function ProductForm({ id }: Prop) {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey:["getAllProducts", { type: "admin" }],
+        queryKey: ["getAllProducts", { type: "admin" }],
       });
     },
   });

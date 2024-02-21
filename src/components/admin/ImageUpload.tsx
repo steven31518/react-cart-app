@@ -1,4 +1,4 @@
-import { useImageDropzoneStore } from "@/utils/zustand";
+import { useImageDropzoneStore } from "@/lib/zustand";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ImageDropzone from "./ImageDropzone";
 import ArtWork from "../ArtWork";

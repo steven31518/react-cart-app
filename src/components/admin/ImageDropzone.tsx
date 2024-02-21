@@ -12,7 +12,7 @@ import ArtWork from "../ArtWork";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/api";
 import toast from "react-hot-toast";
-import { useImageDropzoneStore } from "@/utils/zustand";
+import { useImageDropzoneStore } from "@/lib/zustand";
 
 interface FileWithPreview extends FileWithPath {
   readonly preview: string;

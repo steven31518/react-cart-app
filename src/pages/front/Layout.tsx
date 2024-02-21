@@ -9,7 +9,7 @@ export default function Layout() {
       </div>
       <div className="lg:col-span-5">
         <Navbar />
-        <div className="py-8 px-4 sm:px-4 lg:px-8 ">
+        <div className="py-8 px-4 sm:px-4 lg:px-8">
           <Outlet />
         </div>
       </div>

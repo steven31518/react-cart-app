@@ -2,7 +2,7 @@ import axios from "axios";
 import { z } from "zod";
 import { ProductSchema } from "./adim/products";
 import { UploadSuccessSchema } from "./adim/products";
-
+import { OrderSchema } from "@/components/front/OrderForm";
 export type PostCart = {
   data: {
     product_id: string;
@@ -57,7 +57,14 @@ const GetCartSchema = z.object({
   success: z.boolean(),
   messages: z.array(z.string()),
 });
-
+const PostOrder = z.object({
+  success: z.boolean(),
+  message: z.string(),
+  total: z.number(),
+  create_at: z.number(),
+  orderId: z.string(),
+});
+type User = z.infer<typeof OrderSchema>;
 export const postToCart = (apiPath: string) => {
   return async (data: PostCart) => {
     const response = await axios<z.infer<typeof AddCartSchema>>({
@@ -115,6 +122,35 @@ export function deleteCartItem(apiPath: string) {
       method: "DELETE",
     });
     const validate = UploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}
+
+export function deleteCart(apiPath: string) {
+  return async () => {
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
+      url: `/v2/api/${apiPath}/carts`,
+      method: "DELETE",
+    });
+    const validate = UploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}
+
+export function postOrder(apiPath: string) {
+  return async (data: User) => {
+    const response = await axios<z.infer<typeof PostOrder>>({
+      url: `/v2/api/${apiPath}/order`,
+      method: "POST",
+      data: { data },
+    });
+    const validate = PostOrder.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);
     }

@@ -14,6 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ClipboardList } from "lucide-react";
 import { ArrowLeftCircle } from "lucide-react";
+import CartDeleteButton from "@/components/front/CartDeleteButton";
+import { Link } from "react-router-dom";
+
 type Props = {
   status?: number;
   children: React.ReactNode;
@@ -46,12 +49,23 @@ export default function SheetWarp({ children, status }: Props) {
         </ScrollArea>
         <SheetFooter>
           {status && status > 0 ? (
-            <SheetClose asChild>
-              <Button type="submit" size="icon" className="w-full my-4">
-                <ClipboardList />
-                成立訂單
-              </Button>
-            </SheetClose>
+            <div className="w-full flex justify-center items-center gap-4">
+              <SheetClose asChild>
+                <CartDeleteButton
+                  name="清空購物車"
+                  id="all"
+                  className="rounded-md w-48"
+                />
+              </SheetClose>
+              <SheetClose asChild>
+                <Link to="order">
+                  <Button type="submit" size="icon" className="w-48">
+                    <ClipboardList />
+                    成立訂單
+                  </Button>
+                </Link>
+              </SheetClose>
+            </div>
           ) : (
             <SheetClose asChild>
               <Button type="submit" size="icon" className="w-full my-4">
