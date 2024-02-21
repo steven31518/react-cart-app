@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
 import ArtWork from "@/components/ArtWork";
 import CarouselSize from "@/components/CarouselSize";
-
 import CountButton from "./CountButton";
 import { Separator } from "../ui/separator";
 
@@ -56,7 +55,7 @@ export default function ProductDetail() {
                 <Separator />
               </div>
               <div className="flex flex-col justify-center items-center gap-4">
-                <CountButton qty={1} isActiveButton={true} id={data.id} />
+                <CountButton qty={1} showActiveButton={true} id={data.id} isUseDebounce={false}/>
               </div>
             </div>
           </div>

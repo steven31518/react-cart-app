@@ -11,7 +11,7 @@ import type { PostCart } from "@/api/cart";
 import toast from "react-hot-toast";
 type Props = {
   id: string;
-  isActiveButton?: boolean;
+  showActiveButton?: boolean;
   qty: number;
   className?: string;
   isUseDebounce?: boolean;
@@ -19,7 +19,7 @@ type Props = {
 export default function CountButton({
   qty,
   className,
-  isActiveButton,
+  showActiveButton,
   id,
   isUseDebounce,
 }: Props) {
@@ -51,7 +51,7 @@ export default function CountButton({
     500
   );
   return (
-    <div className="grid grid-flow-row grid-row-2 gap-4">
+    <div className="grid grid-flow-row grid-row-2 gap-4 relative">
       <div
         className={cn(
           "flex items-center justify-center mb-2 border rounded-full p-2",
@@ -71,17 +71,15 @@ export default function CountButton({
         >
           <LuMinus />
         </Button>
-        {isPending ? (
-          <div className="text-center text-lg my-auto w-32"><p>loading...</p></div>
-        ) : (
-          <Input
-            type="number"
-            className="text-center text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
-            placeholder={countQty.toString()}
-            value={countQty}
-            readOnly
-          />
-        )}
+
+        <Input
+          type="number"
+          className="text-center text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
+          placeholder={isPending ? "處理中..." : countQty.toString()}
+          value={isPending ? "處理中..." : countQty}
+          readOnly
+        />
+
         <Button
           type="button"
           className="rounded-full p-3"
@@ -96,7 +94,7 @@ export default function CountButton({
           <LuPlus />
         </Button>
       </div>
-      {isActiveButton ? (
+      {showActiveButton ? (
         <Button
           className="w-full"
           size="lg"

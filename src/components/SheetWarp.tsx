@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ClipboardList } from "lucide-react";
+import { ArrowLeftCircle } from "lucide-react";
 type Props = {
-  status?: string;
+  status?: number;
   children: React.ReactNode;
 };
 export default function SheetWarp({ children, status }: Props) {
@@ -29,18 +32,34 @@ export default function SheetWarp({ children, status }: Props) {
           </Badge>
         </Button>
       </SheetTrigger>
-      <SheetContent className="sm:max-w-sm lg:max-w-lg">
+      <SheetContent className="w-full sm:max-w-sm lg:max-w-lg">
         <SheetHeader>
-          <SheetTitle>購物車</SheetTitle>
+          <SheetTitle className="text-xl">購物車</SheetTitle>
           <SheetDescription>
-            Make changes here. Click save when you're done.
+            {status && status > 0
+              ? "調整您的商品數量，並成立訂單"
+              : "請先加入商品"}
           </SheetDescription>
         </SheetHeader>
-        {children}
+        <ScrollArea className="w-full h-5/6 max-h-screen px-2">
+          {children}
+        </ScrollArea>
         <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
+          {status && status > 0 ? (
+            <SheetClose asChild>
+              <Button type="submit" size="icon" className="w-full my-4">
+                <ClipboardList />
+                成立訂單
+              </Button>
+            </SheetClose>
+          ) : (
+            <SheetClose asChild>
+              <Button type="submit" size="icon" className="w-full my-4">
+                <ArrowLeftCircle />
+                前往選購
+              </Button>
+            </SheetClose>
+          )}
         </SheetFooter>
       </SheetContent>
     </Sheet>
