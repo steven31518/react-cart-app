@@ -130,7 +130,7 @@ export default function ProductForm({ id }: Prop) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-flow-row grid-rows-10 gap-2 px-4"
+        className="grid grid-flow-row gap-2 p-8 bg-muted rounded-md"
       >
         <CustomFormField name="title" label="產品名稱" control={form.control} />
         <CustomFormField

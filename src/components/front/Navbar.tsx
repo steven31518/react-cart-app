@@ -12,7 +12,7 @@ export default function Navbar() {
           <Navigation />
         </div>
       </div>
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2 me-4">
         <ThemeToggle />
         <Cart />
       </div>

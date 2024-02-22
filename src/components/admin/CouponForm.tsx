@@ -10,7 +10,7 @@ import {
 } from "../FormComponents";
 import { Button } from "../ui/button";
 import type { CouponType } from "./TableColumn/coupon-columns";
-import type { NewCoupon } from "@/api/adim/coupon";
+import type { CouponRequest } from "@/api/adim/coupon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api";
 import toast from "react-hot-toast";
@@ -31,22 +31,22 @@ export const CouponSchema = NewCouponSchema.omit({ due_date: true }).extend({
 });
 
 type Props = {
-  coupon: CouponType;
+  data: CouponType;
 };
-export default function CouponForm({ coupon }: Props) {
-  const form = useForm<NewCoupon>({
+export default function CouponForm({ data }: Props) {
+  const form = useForm<z.infer<typeof NewCouponSchema>>({
     resolver: zodResolver(NewCouponSchema),
     defaultValues: {
-      code: "" || coupon.code,
-      due_date: new Date(coupon.due_date ?? new Date()),
-      is_enabled: 0 || coupon.is_enabled,
-      percent: 0 || coupon.percent,
-      title: "" || coupon.title,
+      code: "" || data.code,
+      due_date: new Date(data.due_date ?? new Date()),
+      is_enabled: 0 || data.is_enabled,
+      percent: 0 || data.percent,
+      title: "" || data.title,
     },
   });
   const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: ({ data, id }: { data: NewCoupon; id: string }) => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ data, id }: { data: CouponRequest; id: string }) => {
       if (!id) return api.admin.createCoupon(data);
       return api.admin.editCoupon(data, id);
     },
@@ -55,7 +55,7 @@ export default function CouponForm({ coupon }: Props) {
     },
     onSuccess: (data) => {
       if (!data.success) toast.error(data.message);
-      toast.success("data.message");
+      toast.success(data.message);
     },
     onSettled: () => {
       queryClient.invalidateQueries({
@@ -64,17 +64,20 @@ export default function CouponForm({ coupon }: Props) {
     },
   });
 
-  function onSubmit(values: NewCoupon) {
-    mutate({ data: values, id: coupon.id });
+  function onSubmit(values: z.infer<typeof NewCouponSchema>) {
+    mutate({
+      data: { ...values, due_date: values.due_date.getTime() },
+      id: data.id,
+    });
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-muted p-8 rounded-md place-self-start w-full max-w-2xl"
+        className="bg-muted p-8 rounded-md w-full max-w-2xl"
       >
         <h1 className="font-semibold text-4xl mb-6">
-          {coupon.id ? "編輯折價卷" : "新增折價卷"}
+          {data.id ? "編輯折價卷" : "新增折價卷"}
         </h1>
         <div className="grid grid-flow-row gap-4 items-start">
           <CustomFormField
@@ -104,14 +107,14 @@ export default function CouponForm({ coupon }: Props) {
               control={form.control}
             />
           </div>
-
           <div className="flex justify-center items-center">
             <Button
               type="submit"
               size="icon"
               className="capitalize w-48 font-semibold"
+              disabled={isPending}
             >
-              確認送出
+              {isPending ? "讀取中..." : "確認"}
             </Button>
           </div>
         </div>

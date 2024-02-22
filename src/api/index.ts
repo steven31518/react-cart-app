@@ -9,7 +9,13 @@ import {
   getClientPageProducts,
   getProductWithId,
 } from "./adim/products";
-import { getAllCoupons, createCoupon, editCoupon } from "./adim/coupon";
+import {
+  getAllCoupons,
+  createCoupon,
+  editCoupon,
+  deleteCoupon,
+  userCoupon,
+} from "./adim/coupon";
 import {
   postToCart,
   getCart,
@@ -35,6 +41,7 @@ export const api = {
     getAllCoupons: getAllCoupons(apiPath),
     createCoupon: createCoupon(apiPath),
     editCoupon: editCoupon(apiPath),
+    deleteCoupon: deleteCoupon(apiPath),
   },
   client: {
     getClientPageProducts: getClientPageProducts(apiPath),
@@ -44,5 +51,6 @@ export const api = {
     putCart: putCart(apiPath),
     deleteCartItem: deleteCartItem(apiPath),
     deleteCart: deleteCart(apiPath),
+    userCoupon: userCoupon(apiPath),
   },
 };

@@ -5,6 +5,8 @@ import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
 import { DialogWrap } from "@/components/DialogWrap";
 import CouponForm from "../CouponForm";
+import DeleteButton from "../DeleteButton";
+
 export interface CouponType {
   title: string;
   percent: number;
@@ -69,38 +71,37 @@ export const coupon_columns: ColumnDef<CouponType>[] = [
     },
   },
   {
-    header: "test",
-    cell: ({ row }) => {
+    accessorKey: "id",
+    header: () => {
       return (
         <div className="flex justify-center items-center gap-4">
-          <DialogWrap name="編輯" title={`${row.original.id}`}>
-            <CouponForm coupon={row.original} />
+          <DialogWrap name="新增優惠卷" title={``}>
+            <CouponForm
+              data={{
+                title: "",
+                percent: 0,
+                code: "",
+                due_date: new Date(),
+                is_enabled: 0,
+                id: "",
+                num: 0,
+              }}
+            />
           </DialogWrap>
-          <Button variant={"link"}>刪除</Button>
+        </div>
+      );
+    },
+    cell: ({ row }) => {
+      const id = row.getValue("id");
+      const label = row.original.title;
+      return (
+        <div className="flex justify-center items-center gap-4">
+          <DialogWrap name="編輯" title={`${id}`}>
+            <CouponForm data={row.original} />
+          </DialogWrap>
+          <DeleteButton id={row.original.id} deleteItem={1} label={label} />
         </div>
       );
     },
   },
-
-  //   {
-  //     accessorKey: "id",
-  //     header: () => {
-  //       return <CouponEditor />;
-  //     },
-  //     cell: ({ row }) => {
-  //       return <CouponEditor id={row.getValue("id")} />;
-  //     },
-  //   },
-
-  //   {
-  //     accessorKey: "id",
-  //     header: "編輯",
-  //     cell: ({ row }) => {
-  //       return (
-  //         <div className="flex justify-center">
-  //           <ProductEditor product={row.original} />
-  //         </div>
-  //       );
-  //     },
-  //   },
 ];

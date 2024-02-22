@@ -124,7 +124,7 @@ export const products_columns: ColumnDef<Product>[] = [
           <Link to={`/admin/edit_product/${id}`}>
             <Button variant={"outline"}>編輯</Button>
           </Link>
-          <DeleteButton id={id} deleteItem="產品" label={label}></DeleteButton>
+          <DeleteButton id={id} label={label} deleteItem={0}></DeleteButton>
         </div>
       );
     },
