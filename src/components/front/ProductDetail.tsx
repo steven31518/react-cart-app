@@ -34,16 +34,18 @@ export default function ProductDetail() {
                 aspectRatio="portrait"
                 imageUrl={mainImageUrl ? mainImageUrl : data.imageUrl}
               />
-
-              {data.imagesUrl.length > 0 && (
-                <CarouselSize
-                  imageUrls={data.imagesUrl}
-                  pickMainImage={pickMainImage}
-                />
-              )}
+              <div className="mx-auto">
+                {data.imagesUrl.length > 0 && (
+                  <CarouselSize
+                    imageUrls={data.imagesUrl}
+                    pickMainImage={pickMainImage}
+                  />
+                )}
+              </div>
             </div>
-            <div className="grid grid-rows-subgrid row-span-2 px-2">
               <div className="flex flex-col justify-end items-start gap-y-4 ">
+            <div className="grid grid-rows-subgrid row-span-2 px-8 py-4 rounded-md bg-muted ">
+              <div className="flex flex-col justify-center items-start gap-y-4 ">
                 <div className="flex space-y-2">
                   <h1 className="text-2xl">{data.title}</h1>
                 </div>
@@ -52,9 +54,9 @@ export default function ProductDetail() {
                   NT$:{data.price}/
                   <s className="text-sm ms-1 opacity-75">{data.origin_price}</s>
                 </p>
-                <Separator />
               </div>
-              <div className="flex flex-col justify-center items-center gap-4">
+
+              <div className="flex flex-col justify-start items-center gap-4">
                 <CountButton
                   qty={1}
                   showActiveButton={true}
@@ -64,6 +66,7 @@ export default function ProductDetail() {
               </div>
             </div>
           </div>
+            <Separator />
         </section>
       </main>
     );

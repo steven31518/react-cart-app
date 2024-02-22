@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import validator from "validator";
+import { api } from "@/api";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import {
@@ -9,6 +12,7 @@ import {
 } from "@/components/FormComponents";
 import { Button } from "../ui/button";
 import { SendHorizontal } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const OrderSchema = z.object({
   user: z.object({
@@ -54,9 +58,31 @@ export default function OrderForm() {
       message: "",
     },
   });
-
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { isPending, mutate } = useMutation({
+    mutationFn: (data: z.infer<typeof OrderSchema>) =>
+      api.client.addOrder(data),
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      if (!data.success) toast.error(data.message);
+      toast.success(data.message);
+      form.reset();
+      setTimeout(() => {
+        navigate(`/order/detail/${data.orderId}`);
+      }, 2000);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getCart", { type: "client" }],
+      });
+    },
+  });
   function onSubmit(data: z.infer<typeof OrderSchema>) {
     console.log(data);
+    mutate(data);
   }
   return (
     <Form {...form}>
@@ -102,9 +128,10 @@ export default function OrderForm() {
               type="submit"
               size="icon"
               className="capitalize w-48 font-semibold"
+              disabled={isPending}
             >
               <SendHorizontal />
-              確認送出
+              {isPending ? "送出中" : "送出訂單"}
             </Button>
           </div>
         </div>

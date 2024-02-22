@@ -12,16 +12,22 @@ import { cn } from "@/lib/utils";
 type Prop = {
   imageUrls: string[];
   pickMainImage?: (url: string) => void;
+  orientation?: "horizontal" | "vertical";
 };
 
-export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
+export default function CarouselSize({
+  imageUrls,
+  pickMainImage,
+  orientation = "horizontal",
+}: Prop) {
   return (
     <section>
       <Carousel
         opts={{
           align: "start",
         }}
-        className="max-w-lg"
+        orientation={orientation}
+        className="sm:max-w-sm"
       >
         <CarouselContent>
           {imageUrls.map((url) => (
@@ -44,7 +50,7 @@ export default function CarouselSize({ imageUrls, pickMainImage }: Prop) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="flex justify-center item-center gap-4">
+        <div className="flex justify-center item-center gap-2">
           <CarouselPrevious />
           <CarouselNext />
         </div>

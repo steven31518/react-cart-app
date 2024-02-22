@@ -16,6 +16,7 @@ export default function DashBoard() {
     ?.split("=")[1];
 
   axios.defaults.headers.common["Authorization"] = token;
+  console.log("token", token)
 
   if (!token) navigate("/login");
 
