@@ -4,6 +4,10 @@ import { api } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 
 export default function CouponTable() {
+  const filter = [
+    { label: "折價券名稱", value: "title" },
+    { label: "折扣", value: "percent" },
+  ];
   const { data, isError, isPending, isSuccess, error } = useQuery({
     queryKey: ["getAllCoupons", { type: "admin" }],
     queryFn: () => api.admin.getAllCoupons(),
@@ -19,6 +23,10 @@ export default function CouponTable() {
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>{error.message}</div>;
   return (
-    <div>{isSuccess && <DataTable columns={coupon_columns} data={data} />}</div>
+    <div>
+      {isSuccess && (
+        <DataTable columns={coupon_columns} data={data} filter={filter} />
+      )}
+    </div>
   );
 }

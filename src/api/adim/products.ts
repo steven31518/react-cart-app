@@ -1,6 +1,7 @@
 import { z } from "zod";
 import axios from "axios";
 import { FileWithPath } from "react-dropzone";
+
 export const UploadSuccessSchema = z.object({
   success: z.boolean(),
   message: z.string(),

@@ -9,7 +9,7 @@ import {
   getClientPageProducts,
   getProductWithId,
 } from "./adim/products";
-import { getAllCoupons } from "./adim/coupon";
+import { getAllCoupons, createCoupon, editCoupon } from "./adim/coupon";
 import {
   postToCart,
   getCart,
@@ -28,11 +28,13 @@ export const api = {
   admin: {
     getAdminProducts: getAdminProducts(apiPath),
     getAdminPageProducts: getAdminPageProducts(apiPath),
-    getAllCoupons: getAllCoupons(apiPath),
     uploadImage: uploadImage(apiPath),
     updateProduct: updateProduct(apiPath),
     addProduct: addProduct(apiPath),
     deleteProduct: deleteProduct(apiPath),
+    getAllCoupons: getAllCoupons(apiPath),
+    createCoupon: createCoupon(apiPath),
+    editCoupon: editCoupon(apiPath),
   },
   client: {
     getClientPageProducts: getClientPageProducts(apiPath),

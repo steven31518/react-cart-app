@@ -3,7 +3,9 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
-export interface couponType {
+import { DialogWrap } from "@/components/DialogWrap";
+import CouponForm from "../CouponForm";
+export interface CouponType {
   title: string;
   percent: number;
   code: string;
@@ -13,7 +15,7 @@ export interface couponType {
   num: number;
 }
 
-export const coupon_columns: ColumnDef<couponType>[] = [
+export const coupon_columns: ColumnDef<CouponType>[] = [
   {
     accessorKey: "num",
     header: "序號",
@@ -66,6 +68,20 @@ export const coupon_columns: ColumnDef<couponType>[] = [
       );
     },
   },
+  {
+    header: "test",
+    cell: ({ row }) => {
+      return (
+        <div className="flex justify-center items-center gap-4">
+          <DialogWrap name="編輯" title={`${row.original.id}`}>
+            <CouponForm coupon={row.original} />
+          </DialogWrap>
+          <Button variant={"link"}>刪除</Button>
+        </div>
+      );
+    },
+  },
+
   //   {
   //     accessorKey: "id",
   //     header: () => {

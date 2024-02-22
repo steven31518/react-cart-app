@@ -7,7 +7,7 @@ export default function ImageUpload() {
   const { imageUrls, mainImageUrl, pickMainImage } = useImageDropzoneStore();
   return (
     <div>
-      <Tabs defaultValue={!mainImageUrl ? "upload" : "view"} className="w-full">
+      <Tabs defaultValue={"view"} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="upload">上傳圖片</TabsTrigger>
           <TabsTrigger value="view">預覽圖片</TabsTrigger>
