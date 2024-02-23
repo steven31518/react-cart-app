@@ -1,5 +1,5 @@
 import DataTable from "./DataTable";
-import { coupon_columns } from "./TableColumn/coupon-columns";
+import { coupon_columns } from "./TableColumn/coupons-columns";
 import { api } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 

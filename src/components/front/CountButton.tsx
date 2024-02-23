@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { PlusCircle } from "lucide-react";
 import type { PostCart } from "@/api/cart";
 import toast from "react-hot-toast";
+import CartLoading from "./CartLoading";
 type Props = {
   id: string;
   showActiveButton?: boolean;
@@ -51,10 +52,11 @@ export default function CountButton({
     500
   );
   return (
-    <div className="grid grid-flow-row grid-row-2 gap-4 relative">
+    <div className="grid grid-flow-row grid-row-2 gap-4 relative ">
+      {isPending && isUseDebounce && <CartLoading />}
       <div
         className={cn(
-          "flex items-center justify-center mb-2 border rounded-full p-2",
+          "flex items-center justify-center mb-2 border rounded-full p-2 bg-background",
           className
         )}
       >

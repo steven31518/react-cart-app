@@ -9,7 +9,7 @@ import {
   CustomFormFieldSwitch,
 } from "../FormComponents";
 import { Button } from "../ui/button";
-import type { CouponType } from "./TableColumn/coupon-columns";
+import type { CouponType } from "./TableColumn/coupons-columns";
 import type { CouponRequest } from "@/api/adim/coupon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api";

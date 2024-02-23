@@ -20,9 +20,13 @@ export const OrderSchema = z.object({
       .string()
       .min(1, { message: "姓名為必填欄位" })
       .max(20, { message: "姓名不能超過20字元" })
-      .refine((value) => /^[\u4E00-\u9FA5]+$/.test(value), {
-        message: "名稱只能包含中文字符，不能包含特殊符號",
-      }),
+      .refine(
+        (value) =>
+          /^[\u4E00-\u9FA5]+$/.test(value) && /^[a-zA-Z]+$/.test(value),
+        {
+          message: "名稱只能包含字符，不能包含特殊符號",
+        }
+      ),
     // .regex(new RegExp("^[a-zA-Z]+$"), {
     //   message: "必須為正確文字格式",
     // }),
@@ -45,17 +49,18 @@ export const OrderSchema = z.object({
   message: z.string().max(250, { message: "留言請勿超過250字元" }),
 });
 
-export default function OrderForm() {
+type Props = { userData?: z.infer<typeof OrderSchema> };
+export default function OrderForm({ userData }: Props) {
   const form = useForm<z.infer<typeof OrderSchema>>({
     resolver: zodResolver(OrderSchema),
     defaultValues: {
       user: {
-        name: "",
-        email: "",
-        tel: "",
-        address: "",
+        name: "" || userData?.user.name,
+        email: "" || userData?.user.email,
+        tel: "" || userData?.user.tel,
+        address: "" || userData?.user.address,
       },
-      message: "",
+      message: "" || userData?.message,
     },
   });
   const queryClient = useQueryClient();
@@ -128,10 +133,10 @@ export default function OrderForm() {
               type="submit"
               size="icon"
               className="capitalize w-48 font-semibold"
-              disabled={isPending}
+              disabled={isPending || !!userData}
             >
               <SendHorizontal />
-              {isPending ? "送出中" : "送出訂單"}
+              {userData ? "僅供查看" : isPending ? "送出中" : "送出訂單"}
             </Button>
           </div>
         </div>

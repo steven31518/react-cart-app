@@ -16,6 +16,7 @@ import { ClipboardList } from "lucide-react";
 import { ArrowLeftCircle } from "lucide-react";
 import CartDeleteButton from "@/components/front/CartDeleteButton";
 import { Link } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 type Props = {
   status?: number;
@@ -25,14 +26,10 @@ export default function SheetWarp({ children, status }: Props) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="rounded-full relative"
-        >
+        <Button variant="outline" size="icon" className="rounded-full relative">
           <ShoppingCart className="text-2xl" />
           <Badge className="absolute top-0 left-8 rounded-full bg-red-500">
-            {status}
+            {status ?? <ReactLoading type="spin" width={20} height={20} />}
           </Badge>
         </Button>
       </SheetTrigger>

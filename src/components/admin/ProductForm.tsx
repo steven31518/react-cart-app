@@ -54,7 +54,7 @@ export default function ProductForm({ id }: Prop) {
     description: z.string(),
     content: z.string(),
     is_enabled: z.number(),
-    imageUrl: z.string(),
+    imageUrl: z.string({ required_error: "請上傳圖片並選擇" }),
     imagesUrl: z.array(z.string()),
   });
   const { imageUrls, mainImageUrl, removeAllImage, addImage, pickMainImage } =

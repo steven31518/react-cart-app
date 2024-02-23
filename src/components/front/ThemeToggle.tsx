@@ -31,6 +31,9 @@ export default function ThemeToggle() {
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("cyberpunk")}>
+          cyberpunk
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

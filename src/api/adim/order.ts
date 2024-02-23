@@ -11,6 +11,41 @@ const AddOrderSchema = z.object({
   orderId: z.string(),
 });
 
+export const getOrderSchema = z.object({
+  success: z.boolean(),
+  orders: z.array(
+    z.object({
+      id: z.string(),
+      create_at: z.number(),
+      is_paid: z.boolean(),
+      message: z.any(),
+      products: z.record(
+        z.string(),
+        z.object({
+          id: z.string(),
+          product_id: z.string(),
+          qty: z.coerce.number(),
+        })
+      ),
+      user: z.object({
+        address: z.string(),
+        email: z.string(),
+        name: z.string(),
+        tel: z.string(),
+      }),
+      num: z.number(),
+    })
+  ),
+  pagination: z.object({
+    total_pages: z.number(),
+    current_page: z.number(),
+    has_pre: z.boolean(),
+    has_next: z.boolean(),
+    category: z.string(),
+  }),
+  messages: z.array(z.any()),
+});
+export type OrderColums = z.infer<typeof getOrderSchema>["orders"][0];
 export type AddOrder = z.infer<typeof AddOrderSchema>;
 
 export function addOrder(apiPath: string) {
@@ -26,6 +61,7 @@ export function addOrder(apiPath: string) {
     }
     const baseUrl = import.meta.env.VITE_URL;
 
+    ////htmlbody payload to long...
     // const body = compileOrderLinkMail(
     //   data.user.name,
     //   `${baseUrl}/order/${validate.data.orderId}`,
@@ -42,6 +78,23 @@ export function addOrder(apiPath: string) {
       to_mail: data.user.email,
     });
     console.log(text);
+    return validate.data;
+  };
+}
+
+export function getOrders(apiPath: string) {
+  return async () => {
+    const response = await axios<z.infer<typeof getOrderSchema>>({
+      url: `/v2/api/${apiPath}/orders`,
+      method: "GET",
+    });
+
+    console.log(response.data);
+    const validate = getOrderSchema.safeParse(response.data);
+
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
     return validate.data;
   };
 }

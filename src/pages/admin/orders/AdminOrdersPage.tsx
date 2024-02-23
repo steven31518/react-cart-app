@@ -1,3 +1,14 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import OrderTable from "@/components/admin/OrderTable";
 export default function AdminOrdersPage() {
-  return <div>AdminOrdersPage</div>;
+  const queryClient = new QueryClient();
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <OrderTable />
+    </HydrationBoundary>
+  );
 }

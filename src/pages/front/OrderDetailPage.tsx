@@ -1,6 +1,9 @@
-import { useParams } from "react-router-dom";
 
+import OrderSearch from "@/components/front/OrderSearch";
 export default function OrderDetailPage() {
-  const { id } = useParams();
-  return <div>{`orderId:${id}`}</div>;
+  return (
+    <div>
+      <OrderSearch />
+    </div>
+  );
 }
