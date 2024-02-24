@@ -65,33 +65,33 @@
     --ring: 212.7 26.8% 83.9%;
   }
   .cyberpunk {
-    --background: 60, 80%, 50%; /* less saturated yellow */
-    --foreground: 0, 0%, 0%; /* pure black */
+    --background: 190 41% 11%;
+    --foreground: 300 100% 50%;
 
-    --card: 0, 0%, 10%; /* dark gray */
-    --card-foreground: 0, 0%, 90%; /* light gray */
+    --card: 210 41% 31%;
+    --card-foreground: 300 100% 50%;
 
-    --popover: 0, 0%, 10% /* dark gray */
-    --popover-foreground: 0, 0%, 90%; /* light gray */
+    --popover: 200 16% 18%;
+    --popover-foreground: 300 100% 50%;
 
-    --primary: 210, 80%, 50% /* less saturated blue */
-    --primary-foreground: 0, 0%, 0%; /* pure black */
+    --primary: 200 80% 50%;
+    --primary-foreground: 230 3% 93%;
 
-    --secondary: 0, 80%, 50%; /* less saturated red */
-    --secondary-foreground: 0, 0%, 100%; /* pure white */
+    --secondary: 70 79% 48%;
+    --secondary-foreground: 300 100% 50%;
 
-    --muted: 330, 80%, 50%; /* less saturated pink */
-    --muted-foreground: 0, 0%, 0%; /* pure black */
+    --muted: 200 16% 18%;
+    --muted-foreground: 200 35% 70%;
 
-    --accent: 300, 80%, 50%; /* less saturated magenta */
-    --accent-foreground: 0, 0%, 100%; /* pure white */
+    --accent: 70 79% 48%;
+    --accent-foreground: 300 100% 50%;
 
-    --destructive: 0, 0%, 50%; /* medium gray */
-    --destructive-foreground: 0, 0%, 100%; /* pure white */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 300 100% 50%;
 
-    --border: 0, 0%, 30%; /* medium gray */
-    --input: 0, 0%, 30%; /* medium gray */
-    --ring: 0, 0%, 70%; /* light gray */
+    --border: 70 79% 48%;
+    --input: 70 79% 48%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 

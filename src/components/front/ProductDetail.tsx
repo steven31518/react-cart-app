@@ -30,7 +30,7 @@ export default function ProductDetail({ id }: Props) {
       <main>
         <section className="container">
           <div className="grid md:grid-cols-2 grid-rows-[repeat(1,auto)] gap-x-4 gap-y-4">
-            <div className="grid grid-rows-subgrid row-span-1 px-2 max-w-lg">
+            <div className="grid grid-rows-subgrid row-span-1 px-2">
               <ArtWork
                 aspectRatio="portrait"
                 imageUrl={mainImageUrl ? mainImageUrl : data.imageUrl}
