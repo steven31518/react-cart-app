@@ -22,7 +22,7 @@ export default function DeleteButton({ id, deleteItem, label }: Props) {
   const { isPending, isSuccess, mutate } = useMutation({
     mutationFn: (id: string) => {
       if (deleteItem === DeleteItem.Coupon) return api.admin.deleteCoupon(id);
-
+      if (deleteItem === DeleteItem.Order) return api.admin.deleteOrder(id);
       return api.admin.deleteProduct(id as string);
     },
     onError: (error) => {
@@ -44,6 +44,10 @@ export default function DeleteButton({ id, deleteItem, label }: Props) {
       if (deleteItem === DeleteItem.Coupon)
         queryClient.invalidateQueries({
           queryKey: ["getAllCoupons", { type: "admin" }],
+        });
+      if (deleteItem === DeleteItem.Order)
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOrders", { type: "admin" }],
         });
       queryClient.invalidateQueries({
         queryKey: ["getAllProducts", { type: "admin" }],

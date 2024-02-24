@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import DeleteButton from "../DeleteButton";
 import { OrderColums } from "@/api/adim/order";
 import { ArrowUpDown } from "lucide-react";
-import ProductDetail from "@/components/front/ProductDetail";
 
 export const order_columns: ColumnDef<OrderColums>[] = [
   {
@@ -46,19 +45,14 @@ export const order_columns: ColumnDef<OrderColums>[] = [
     header: "訂購人",
     cell: ({ row }) => {
       return (
-        <div className="flex justify-center">
-          <DialogWrap name="查看訂購人" title={``}>
+        <div className="">
+          <DialogWrap name="查看訂購人" className="max-w-4xl" title={``}>
             <OrderForm
               userData={{
                 user: { ...row.original.user },
                 message: row.original.message,
               }}
             />
-            <div className="flex flex-col gap-y-2">
-              {Object.values(row.original.products).map((product) => {
-                return <ProductDetail id={product.product_id} />;
-              })}
-            </div>
           </DialogWrap>
         </div>
       );

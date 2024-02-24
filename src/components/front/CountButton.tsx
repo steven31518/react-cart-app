@@ -76,7 +76,7 @@ export default function CountButton({
 
         <Input
           type="number"
-          className="text-center text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="text-center text-lg my-auto border-0 p-4 focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder={isPending ? "處理中..." : countQty.toString()}
           value={isPending ? "處理中..." : countQty}
           readOnly
@@ -98,7 +98,7 @@ export default function CountButton({
       </div>
       {showActiveButton ? (
         <Button
-          className="w-full"
+          className="w-full rounded-full"
           size="lg"
           disabled={isPending}
           onClick={() =>

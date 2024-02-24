@@ -30,7 +30,7 @@ export default function Order() {
         </div>
         <div className="flex flex-col justify-center items-end max-w-lg">
           <div className="flex flex-col justify-center items-start gap-8 px-2 py-4 lg:gap-4">
-            <h1 className="font-semibold text-4xl mb-6">本次購物明細</h1>
+            <h1 className="font-semibold text-4xl mb-6">購物明細</h1>
 
             {isPending && <div>Loading...</div>}
             {isError && <div>{error.message}</div>}

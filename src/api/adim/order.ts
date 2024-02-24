@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from "zod";
 import { OrderSchema } from "@/components/front/OrderForm";
 import { sendEmail } from "@/lib/email";
+import { UploadSuccessSchema } from "./products";
 
 const AddOrderSchema = z.object({
   success: z.boolean(),
@@ -11,31 +12,31 @@ const AddOrderSchema = z.object({
   orderId: z.string(),
 });
 
-export const getOrderSchema = z.object({
-  success: z.boolean(),
-  orders: z.array(
+const OrderWithIdSchema = z.object({
+  id: z.string(),
+  create_at: z.number(),
+  is_paid: z.boolean(),
+  message: z.any(),
+  products: z.record(
+    z.string(),
     z.object({
       id: z.string(),
-      create_at: z.number(),
-      is_paid: z.boolean(),
-      message: z.any(),
-      products: z.record(
-        z.string(),
-        z.object({
-          id: z.string(),
-          product_id: z.string(),
-          qty: z.coerce.number(),
-        })
-      ),
-      user: z.object({
-        address: z.string(),
-        email: z.string(),
-        name: z.string(),
-        tel: z.string(),
-      }),
-      num: z.number(),
+      product_id: z.string(),
+      qty: z.coerce.number(),
     })
   ),
+  user: z.object({
+    address: z.string(),
+    email: z.string(),
+    name: z.string(),
+    tel: z.string(),
+  }),
+  num: z.number(),
+});
+
+const getOrderSchema = z.object({
+  success: z.boolean(),
+  orders: z.array(OrderWithIdSchema), 
   pagination: z.object({
     total_pages: z.number(),
     current_page: z.number(),
@@ -85,13 +86,41 @@ export function addOrder(apiPath: string) {
 export function getOrders(apiPath: string) {
   return async () => {
     const response = await axios<z.infer<typeof getOrderSchema>>({
-      url: `/v2/api/${apiPath}/orders`,
+      url: `/v2/api/${apiPath}/admin/orders`,
       method: "GET",
     });
 
     console.log(response.data);
     const validate = getOrderSchema.safeParse(response.data);
 
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}
+
+export function deleteOrder(apiPath: string) {
+  return async (id: string) => {
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
+      url: `/v2/api/${apiPath}/admin/order/${id}`,
+      method: "DELETE",
+    });
+    const validate = UploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}
+
+export function getOrderWithId(apiPath: string) {
+  return async (id: string) => {
+    const response = await axios<z.infer<typeof OrderWithIdSchema>>({
+      url: `/v2/api/${apiPath}/order/${id}`,
+      method: "GET",
+    });
+    const validate = OrderWithIdSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);
     }

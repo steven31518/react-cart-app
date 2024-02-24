@@ -22,7 +22,7 @@ export const OrderSchema = z.object({
       .max(20, { message: "姓名不能超過20字元" })
       .refine(
         (value) =>
-          /^[\u4E00-\u9FA5]+$/.test(value) && /^[a-zA-Z]+$/.test(value),
+          /^[\u4E00-\u9FA5]+$/.test(value) || /^[a-zA-Z]+$/.test(value),
         {
           message: "名稱只能包含字符，不能包含特殊符號",
         }
@@ -62,6 +62,7 @@ export default function OrderForm({ userData }: Props) {
       },
       message: "" || userData?.message,
     },
+    disabled: !!userData,
   });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -128,17 +129,21 @@ export default function OrderForm({ userData }: Props) {
               control={form.control}
             />
           </div>
-          <div className="flex justify-center lg:col-span-2 self-end">
-            <Button
-              type="submit"
-              size="icon"
-              className="capitalize w-48 font-semibold"
-              disabled={isPending || !!userData}
-            >
-              <SendHorizontal />
-              {userData ? "僅供查看" : isPending ? "送出中" : "送出訂單"}
-            </Button>
-          </div>
+          {userData ? (
+            ""
+          ) : (
+            <div className="flex justify-center lg:col-span-2 self-end">
+              <Button
+                type="submit"
+                size="icon"
+                className="capitalize w-48 font-semibold"
+                disabled={isPending || !!userData}
+              >
+                <SendHorizontal />
+                {isPending ? "送出中" : "送出訂單"}
+              </Button>
+            </div>
+          )}
         </div>
       </form>
     </Form>
