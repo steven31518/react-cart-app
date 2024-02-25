@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { SendHorizontal } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const OrderSchema = z.object({
+export const UserSchema = z.object({
   user: z.object({
     name: z
       .string()
@@ -49,10 +49,10 @@ export const OrderSchema = z.object({
   message: z.string().max(250, { message: "留言請勿超過250字元" }),
 });
 
-type Props = { userData?: z.infer<typeof OrderSchema> };
+type Props = { userData?: z.infer<typeof UserSchema> };
 export default function OrderForm({ userData }: Props) {
-  const form = useForm<z.infer<typeof OrderSchema>>({
-    resolver: zodResolver(OrderSchema),
+  const form = useForm<z.infer<typeof UserSchema>>({
+    resolver: zodResolver(UserSchema),
     defaultValues: {
       user: {
         name: "" || userData?.user.name,
@@ -67,7 +67,7 @@ export default function OrderForm({ userData }: Props) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
-    mutationFn: (data: z.infer<typeof OrderSchema>) =>
+    mutationFn: (data: z.infer<typeof UserSchema>) =>
       api.client.addOrder(data),
     onError: (error) => {
       toast.error(error.message);
@@ -86,7 +86,7 @@ export default function OrderForm({ userData }: Props) {
       });
     },
   });
-  function onSubmit(data: z.infer<typeof OrderSchema>) {
+  function onSubmit(data: z.infer<typeof UserSchema>) {
     console.log(data);
     mutate(data);
   }
@@ -94,7 +94,7 @@ export default function OrderForm({ userData }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-muted p-8 rounded-md place-self-start w-full max-w-2xl"
+        className="bg-muted p-8 rounded-md place-self-strech w-full max-w-2xl"
       >
         <h1 className="font-semibold text-4xl mb-6">基本資料</h1>
         <div className="grid gap-4 lg:grid-cols-2 items-start">

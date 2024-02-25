@@ -12,26 +12,28 @@ import toast from "react-hot-toast";
 import CartLoading from "./CartLoading";
 type Props = {
   id: string;
-  showActiveButton?: boolean;
-  qty: number;
+  addCartButton?: boolean;
+  qty?: number;
   className?: string;
   isUseDebounce?: boolean;
 };
 export default function CountButton({
   qty,
   className,
-  showActiveButton,
+  addCartButton,
   id,
   isUseDebounce,
 }: Props) {
-  const [countQty, setcountQty] = useState<number>(qty);
+  const [countQty, setcountQty] = useState<number>(qty??1);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: (data: PostCart) => {
-      if (isUseDebounce) {
-        return api.client.putCart(data);
-      } else {
+      if (!isUseDebounce) {
+        console.log("post")
         return api.client.postToCart(data);
+      } else {
+        console.log("put")
+        return api.client.putCart(data);
       }
     },
     onError: (error) => {
@@ -96,7 +98,7 @@ export default function CountButton({
           <LuPlus />
         </Button>
       </div>
-      {showActiveButton ? (
+      {addCartButton ? (
         <Button
           className="w-full rounded-full"
           size="lg"

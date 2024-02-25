@@ -67,7 +67,7 @@
   .cyberpunk {
     
     --background: 222.2 84% 4.9%;
-    --foreground: 300 100% 50%;
+    --foreground: 200 80% 50%;
 
     --card: 210 41% 31%;
     --card-foreground: 300 100% 50%;
@@ -75,13 +75,13 @@
     --popover: 200 16% 18%;
     --popover-foreground: 300 100% 50%;
 
-    --primary: 200 80% 50%;
+    --primary: 300 100% 50%;
     --primary-foreground: 230 3% 93%;
 
     --secondary: 70 79% 48%;
     --secondary-foreground: 300 100% 50%;
 
-    --muted: 70 79% 48%;
+    --muted: 60 95% 48%;
     --muted-foreground: 200 35% 70%;
 
     --accent: 70 79% 48%;

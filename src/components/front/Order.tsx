@@ -3,8 +3,10 @@ import { api } from "@/api";
 import OrderForm from "./OrderForm";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import ArtWork from "../ArtWork";
+
 import { Separator } from "../ui/separator";
+import PriceCard from "../PriceCard";
+import CouponInput from "./CouponForm";
 
 export default function Order() {
   const { data, isError, isPending, isSuccess, error } = useQuery({
@@ -31,34 +33,19 @@ export default function Order() {
         <div className="flex flex-col justify-center items-end max-w-lg">
           <div className="flex flex-col justify-center items-start gap-8 px-2 py-4 lg:gap-4">
             <h1 className="font-semibold text-4xl mb-6">購物明細</h1>
-
+            <CouponInput />
             {isPending && <div>Loading...</div>}
             {isError && <div>{error.message}</div>}
             {isSuccess &&
               data.carts.map((cart) => (
-                <div
-                  className="grid grid-cols-5 gap-4 border rounded-md "
-                  key={cart.id}
-                >
-                  <div className="col-span-2">
-                    <ArtWork
-                      aspectRatio="square"
-                      imageUrl={cart.product.imageUrl}
-                    />
-                  </div>
-                  <div className="col-span-3 flex flex-col items-start justify-center gap-4">
-                    <p>{`品項: ${cart.product.title}`}</p>
-                    <p>{`總計: ${cart.qty}
-                  ${cart.product.unit} x ${cart.product.price}= NT$ ${cart.total}
-                  元`}</p>
-                  </div>
+                <div className="p-4 border rounded" key={cart.id}>
+                  <PriceCard data={cart} />
                 </div>
               ))}
           </div>
           <Separator />
           {isSuccess && (
             <div className="flex flex-col items-end justify-end mt-2">
-              <p>{`小計: NT$ ${data.total} 元`}</p>
               <h1 className="font-semibold text-4xl">
                 {`總計: NT$ ${data.final_total} 元`}
               </h1>

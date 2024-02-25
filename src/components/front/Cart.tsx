@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
 import SheetWarp from "../SheetWarp";
-import ArtWork from "../ArtWork";
 import CountButton from "./CountButton";
 import CartDeleteButton from "./CartDeleteButton";
 import { Separator } from "@/components/ui/separator";
+import PriceCard from "../PriceCard";
+
 export default function Cart() {
   const { data, isError, isPending, isSuccess, error } = useQuery({
     queryKey: ["getCart", { type: "client" }],
@@ -23,24 +24,10 @@ export default function Cart() {
         <div className="flex flex-col justify-center items-start gap-8 px-2 py-4 lg:gap-4">
           {isSuccess &&
             data.carts.map((cart) => (
-              <div
-                className="grid grid-cols-5 gap-4 border rounded-md "
-                key={cart.id}
-              >
-                <div className="col-span-2">
-                  <ArtWork
-                    aspectRatio="square"
-                    imageUrl={cart.product.imageUrl}
-                  />
-                </div>
-                <div className="col-span-3 flex flex-col items-start justify-start gap-4">
-                  <CartDeleteButton id={cart.id} className="self-end" />
-                  <p>{`品項: ${cart.product.title}`}</p>
-                  <p>{`總計: ${cart.qty}
-                  ${cart.product.unit} x ${cart.product.price}= NT$ ${cart.total}
-                  元`}</p>
-                </div>
-                <div className="col-span-5 px-4">
+              <div className="flex flex-col border rounded-md" key={cart.id}>
+                <CartDeleteButton id={cart.id} className="self-end" />
+                <PriceCard data={cart} />
+                <div className="px-4 mt-2">
                   <CountButton
                     qty={cart.qty}
                     id={cart.id}

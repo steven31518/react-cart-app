@@ -10,7 +10,7 @@ export default function ProductPage() {
   const queryClient = new QueryClient();
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      {id && <ProductDetail id={id} />}
+      {id && <ProductDetail id={id} client={true} />}
     </HydrationBoundary>
   );
 }

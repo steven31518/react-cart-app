@@ -1,9 +1,10 @@
+import { UserSchema } from "@/components/front/OrderForm";
 import axios from "axios";
 import { z } from "zod";
-import { OrderSchema } from "@/components/front/OrderForm";
+
 import { sendEmail } from "@/lib/email";
 import { UploadSuccessSchema } from "./products";
-
+import { ProductSchema } from "./products";
 const AddOrderSchema = z.object({
   success: z.boolean(),
   message: z.string(),
@@ -12,7 +13,7 @@ const AddOrderSchema = z.object({
   orderId: z.string(),
 });
 
-const OrderWithIdSchema = z.object({
+const OrderSchema = z.object({
   id: z.string(),
   create_at: z.number(),
   is_paid: z.boolean(),
@@ -23,6 +24,9 @@ const OrderWithIdSchema = z.object({
       id: z.string(),
       product_id: z.string(),
       qty: z.coerce.number(),
+      total: z.coerce.number(),
+      final_total: z.number().transform((p) => p.toFixed(0)),
+      product: ProductSchema,
     })
   ),
   user: z.object({
@@ -31,12 +35,21 @@ const OrderWithIdSchema = z.object({
     name: z.string(),
     tel: z.string(),
   }),
-  num: z.number(),
+});
+const OrderWithIdSchema = z.object({
+  success: z.boolean(),
+  order: OrderSchema.extend({
+    total: z.number(),
+  }),
 });
 
 const getOrderSchema = z.object({
   success: z.boolean(),
-  orders: z.array(OrderWithIdSchema), 
+  orders: z.array(
+    OrderSchema.extend({
+      num: z.number(),
+    })
+  ),
   pagination: z.object({
     total_pages: z.number(),
     current_page: z.number(),
@@ -50,7 +63,7 @@ export type OrderColums = z.infer<typeof getOrderSchema>["orders"][0];
 export type AddOrder = z.infer<typeof AddOrderSchema>;
 
 export function addOrder(apiPath: string) {
-  return async (data: z.infer<typeof OrderSchema>) => {
+  return async (data: z.infer<typeof UserSchema>) => {
     const response = await axios<z.infer<typeof AddOrderSchema>>({
       url: `/v2/api/${apiPath}/order`,
       method: "POST",
@@ -90,7 +103,6 @@ export function getOrders(apiPath: string) {
       method: "GET",
     });
 
-    console.log(response.data);
     const validate = getOrderSchema.safeParse(response.data);
 
     if (!validate.success) {
@@ -120,6 +132,7 @@ export function getOrderWithId(apiPath: string) {
       url: `/v2/api/${apiPath}/order/${id}`,
       method: "GET",
     });
+    console.log("client", response.data);
     const validate = OrderWithIdSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);

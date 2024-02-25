@@ -35,9 +35,8 @@ function App() {
         </Route>
         <Route path="*" element={<Layout />}>
           <Route path="products/:category" element={<Store />} />
-          <Route path="check-order" element={<OrderDetail />}>
-            <Route path=":id" element={<OrderDetail />} />
-          </Route>
+          
+          <Route path="order-check" element={<OrderDetail />} />
           <Route path="product/:id" element={<Detail />} />
           <Route path="mail" element={<Mail />} />
         </Route>

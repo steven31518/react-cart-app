@@ -9,15 +9,12 @@ import { Button } from "@/components/ui/button";
 import DeleteButton from "../DeleteButton";
 import { OrderColums } from "@/api/adim/order";
 import { ArrowUpDown } from "lucide-react";
+import PriceCard from "@/components/PriceCard";
 
 export const order_columns: ColumnDef<OrderColums>[] = [
   {
     accessorKey: "num",
     header: "序號",
-  },
-  {
-    accessorKey: "id",
-    header: "訂單編號",
   },
   {
     accessorKey: "create_at",
@@ -42,22 +39,38 @@ export const order_columns: ColumnDef<OrderColums>[] = [
   },
   {
     accessorKey: "user",
-    header: "訂購人",
+    header: "訂購明細",
     cell: ({ row }) => {
       return (
         <div className="">
-          <DialogWrap name="查看訂購人" className="max-w-4xl" title={``}>
-            <OrderForm
-              userData={{
-                user: { ...row.original.user },
-                message: row.original.message,
-              }}
-            />
+          <DialogWrap
+            name={`查看明細`}
+            className="max-w-4xl"
+            title={`編號:${row.original.id}`}
+          >
+            <div className="grid lg:grid-cols-2 gap-2">
+              <OrderForm
+                userData={{
+                  user: { ...row.original.user },
+                  message: row.original.message,
+                }}
+              />
+              <div className="flex flex-col gap-2">
+                {Object.values(row.original.products).map((product) => {
+                  return (
+                    <div className="p-4 border rounded" key={product.id}>
+                      <PriceCard data={product} />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </DialogWrap>
         </div>
       );
     },
   },
+
   {
     accessorKey: "is_paid",
     header: "是否付款",

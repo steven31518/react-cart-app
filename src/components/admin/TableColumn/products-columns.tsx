@@ -108,7 +108,7 @@ export const products_columns: ColumnDef<Product>[] = [
       return (
         <div className="flex items-center justify-center">
           <Link to="/admin/edit_product/create">
-            <Button>
+            <Button variant={"outline"} size="icon" className="w-36 rounded-full">
               <PlusCircle />
               <span className="ms-2">新增產品</span>
             </Button>
@@ -122,7 +122,7 @@ export const products_columns: ColumnDef<Product>[] = [
       return (
         <div className="flex items-center justify-center gap-2">
           <Link to={`/admin/edit_product/${id}`}>
-            <Button variant={"outline"}>編輯</Button>
+            <Button variant={"link"}>編輯</Button>
           </Link>
           <DeleteButton id={id} label={label} deleteItem={0}></DeleteButton>
         </div>

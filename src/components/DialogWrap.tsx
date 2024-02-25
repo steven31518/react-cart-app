@@ -26,7 +26,7 @@ export function DialogWrap({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{name}</Button>
+        <Button variant="link">{name}</Button>
       </DialogTrigger>
       <DialogContent className={className}>
         <DialogHeader>
