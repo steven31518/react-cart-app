@@ -31,7 +31,7 @@ export default function ProductDetail({ id }: Props) {
             <div className="grid grid-rows-subgrid row-span-4 lg:row-span-2 px-2 lg:grid-cols-2 gap-4">
               <>
                 <ArtWork
-                  aspectRatio="portrait"
+                  aspectRatio="square"
                   imageUrl={mainImageUrl ? mainImageUrl : data.imageUrl}
                   width={300}
                   className="max-w-sm mx-auto"

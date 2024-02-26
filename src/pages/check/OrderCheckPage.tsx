@@ -18,7 +18,7 @@ export default function OrderCheckPage() {
   const id = searchParams.get("id");
   return (
     <section>
-      <div className="flex items-center justify-center py-4 px-4">
+      <div className="flex items-center justify-center py-8  mb-6">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -46,7 +46,9 @@ export default function OrderCheckPage() {
       </div>
       <div>
         {!stage && <Order />}
-        {stage === "payment" && id && <OrderDetail searchParams={id} />}
+        {id && (stage === "payment" || stage === "success") && (
+          <OrderDetail searchParams={id} />
+        )}
       </div>
     </section>
   );
