@@ -10,20 +10,16 @@ const AdminCoupons = lazy(
 );
 const AdminOrder = lazy(() => import("./pages/admin/orders/AdminOrdersPage"));
 const Login = lazy(() => import("./pages/LoginPage"));
-
 const EditProduct = lazy(
   () => import("./pages/admin/prodocts/EditProductPage")
 );
 const Layout = lazy(() => import("./pages/front/Layout"));
-
 const Store = lazy(() => import("./pages/front/StorePage"));
-
 const Detail = lazy(() => import("./pages/front/ProductPage"));
-const Order = lazy(() => import("./pages/front/OrderPage"));
+
 const OrderDetail = lazy(() => import("./pages/front/OrderDetailPage"));
 const Mail = lazy(() => import("./pages/front/ContactPage"));
-const CheckLayout = lazy(() => import("./pages/check/Layout"));
-const Payment = lazy(() => import("./pages/check/PaymentPage"));
+const OrderCheck = lazy(() => import("./pages/check/OrderCheckPage"));
 
 function App() {
   return (
@@ -43,11 +39,7 @@ function App() {
           <Route path="product/:id" element={<Detail />} />
           <Route path="mail" element={<Mail />} />
         </Route>
-        <Route path="order" element={<CheckLayout />}>
-          <Route path=":path" element={<Order />} />
-          <Route path=":path/:id" element={<Payment />} />
-          {/* <Route path="success/:id" element={<Order />} /> */}
-        </Route>
+        <Route path="order" element={<OrderCheck />}></Route>
       </Routes>
     </Suspense>
   );

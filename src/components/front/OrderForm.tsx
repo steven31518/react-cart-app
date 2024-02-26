@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import validator from "validator";
 import { api } from "@/api";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
@@ -13,6 +12,7 @@ import {
 import { Button } from "../ui/button";
 import { SendHorizontal } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 
 export const UserSchema = z.object({
   user: z.object({
@@ -65,7 +65,8 @@ export default function OrderForm({ userData }: Props) {
     disabled: !!userData,
   });
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const setSearchParams = useSearchParams()[1];
+
   const { isPending, mutate } = useMutation({
     mutationFn: (data: z.infer<typeof UserSchema>) => api.client.addOrder(data),
     onError: (error) => {
@@ -75,9 +76,11 @@ export default function OrderForm({ userData }: Props) {
       if (!data.success) toast.error(data.message);
       toast.success(data.message);
       form.reset();
-      setTimeout(() => {
-        navigate(`/order/pay/${data.orderId}`);
-      }, 2000);
+      setSearchParams((pre) => {
+        pre.set("id", data.orderId ?? "");
+        pre.set("stage", "payment");
+        return pre;
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({

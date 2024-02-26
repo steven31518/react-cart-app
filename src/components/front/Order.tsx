@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
 import OrderForm from "./OrderForm";
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-
 import { Separator } from "../ui/separator";
 import PriceCard from "../PriceCard";
 import CouponInput from "./CouponForm";
@@ -18,18 +15,9 @@ export default function Order() {
       final_total: data.data.final_total,
     }),
   });
-
   return (
-    <main className="py-8 px-4 sm:px-4 lg:px-8">
-      <section className="grid grid-cols-1 md:grid-cols-2 place-items-center items-center gap-y-8 ">
-        <div className="md:col-span-2 flex justify-center items-center ">
-          <p className="text-center p-2 ">還想購物嗎?</p>
-          <Link to={"/products"}>
-            <Button variant={"link"} className="text-blue-500">
-              繼續購物
-            </Button>
-          </Link>
-        </div>
+    <section className="py-8 px-4 sm:px-4 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 place-items-center items-center gap-y-8 ">
         <div className="flex flex-col justify-center items-end max-w-lg">
           <div className="flex flex-col justify-center items-start gap-8 px-2 py-4 lg:gap-4">
             <h1 className="font-semibold text-4xl mb-6">購物明細</h1>
@@ -57,7 +45,7 @@ export default function Order() {
         ) : (
           <div>購物車是空的</div>
         )}
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

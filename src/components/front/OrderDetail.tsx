@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import PriceCard from "../PriceCard";
 import OrderForm from "./OrderForm";
 import { ScrollArea } from "../ui/scroll-area";
-
 type Props = {
   searchParams: string;
 };

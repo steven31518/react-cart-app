@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,43 +8,35 @@ import { Separator } from "@/components/ui/separator";
 import { Bs1Circle } from "react-icons/bs";
 import { Bs2Circle } from "react-icons/bs";
 import { Bs3Circle } from "react-icons/bs";
-import { Outlet } from "react-router-dom";
-export default function Layout() {
-  const { path, id } = useParams();
-  const navigate = useNavigate();
+import { useSearchParams } from "react-router-dom";
+import Order from "@/components/front/Order";
+import OrderDetail from "@/components/front/OrderDetail";
+
+export default function OrderCheckPage() {
+  const searchParams = useSearchParams()[0];
+  const stage = searchParams.get("stage");
+  const id = searchParams.get("id");
   return (
     <section>
       <div className="flex items-center justify-center py-4 px-4">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Button
-                onClick={() => navigate("/order/check")}
-                className="rounded-full"
-                disabled={path !== "check"}
-              >
+              <Button className="rounded-full" disabled={!!id}>
                 <Bs1Circle />
                 <span className="hidden lg:block">確認訂單</span>
               </Button>
             </NavigationMenuItem>
             <Separator className="w-1/2" />
             <NavigationMenuItem>
-              <Button
-                onClick={() => navigate(`/order/pay/${id}`)}
-                className="rounded-full"
-                disabled={path !== "pay"}
-              >
+              <Button className="rounded-full" disabled={stage !== "payment"}>
                 <Bs2Circle />
                 <span className="hidden lg:block">訂單付款</span>
               </Button>
             </NavigationMenuItem>
             <Separator className="w-1/2" />
             <NavigationMenuItem>
-              <Button
-                className="rounded-full"
-                onClick={() => navigate("/order/success")}
-                disabled={path !== "success"}
-              >
+              <Button className="rounded-full" disabled={stage !== "success"}>
                 <Bs3Circle />
                 <span className="hidden lg:block">付款完成</span>
               </Button>
@@ -55,7 +45,8 @@ export default function Layout() {
         </NavigationMenu>
       </div>
       <div>
-        <Outlet />
+        {!stage && <Order />}
+        {stage === "payment" && id && <OrderDetail searchParams={id} />}
       </div>
     </section>
   );
