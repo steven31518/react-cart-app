@@ -35,7 +35,7 @@ export default function Store() {
             {transformCategory(category ?? "")}
           </h1>
           <Separator className="mb-6" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-x-4 gap-y-4 lg:gap-y-2">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-4 lg:gap-2">
             {data.products.map((product) => {
               return <ProductCard key={product.id} data={product} />;
             })}

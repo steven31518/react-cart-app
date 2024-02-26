@@ -10,11 +10,11 @@ export default function ProductCard({ data }: { data: Product }) {
       to={`/product/${id}`}
       className="bg-muted p-4 border rounded-md grid grid-rows-subgrid row-span-5 hover:opacity-90 transition-all duration-300 ease-in-out"
     >
-      <ArtWork aspectRatio="portrait" imageUrl={imageUrl} />
+      <ArtWork aspectRatio="square" imageUrl={imageUrl} className=""/>
       <div className="flex items-center justify-start">
         <Badge>{category}</Badge>
       </div>
-      <p className="font-bold">{title}</p>
+      <p className="font-semibold ">{title}</p>
       <p className="text-xs">{description}</p>
       <p className="">
         NT$:{price}/<s className="text-sm ms-1 opacity-75">{origin_price}</s>

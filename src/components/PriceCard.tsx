@@ -13,6 +13,9 @@ export default function PriceCard({ data }: { data: Cart }) {
         {data.coupon?.id ? (
           <>
             <Badge>已套用優惠 {data.coupon?.title}</Badge>
+            <s className="text-xs opacity-85">{`總計: ${data.qty}
+            ${data.product.unit} x ${data.product.price}= NT$ ${data.total}
+            元`}</s>
             <p>{`總計: ${data.qty}
               ${data.product.unit} x ${
               data.product.price * (data.coupon?.percent / 100)

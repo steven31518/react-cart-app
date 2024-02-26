@@ -67,8 +67,7 @@ export default function OrderForm({ userData }: Props) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
-    mutationFn: (data: z.infer<typeof UserSchema>) =>
-      api.client.addOrder(data),
+    mutationFn: (data: z.infer<typeof UserSchema>) => api.client.addOrder(data),
     onError: (error) => {
       toast.error(error.message);
     },
@@ -77,7 +76,7 @@ export default function OrderForm({ userData }: Props) {
       toast.success(data.message);
       form.reset();
       setTimeout(() => {
-        navigate(`/order/detail/${data.orderId}`);
+        navigate(`/order/pay/${data.orderId}`);
       }, 2000);
     },
     onSettled: () => {
@@ -87,7 +86,6 @@ export default function OrderForm({ userData }: Props) {
     },
   });
   function onSubmit(data: z.infer<typeof UserSchema>) {
-    console.log(data);
     mutate(data);
   }
   return (

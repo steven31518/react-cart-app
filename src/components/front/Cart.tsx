@@ -40,7 +40,6 @@ export default function Cart() {
         <Separator />
         {isSuccess && (
           <div className="flex flex-col items-end justify-end mt-2 px-4">
-            <p>{`小計: NT$ ${data.total} 元`}</p>
             <h1 className="font-semibold text-4xl">
               {`總計: NT$ ${data.final_total} 元`}
             </h1>

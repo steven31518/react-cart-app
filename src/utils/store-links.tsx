@@ -6,6 +6,8 @@ import { Soup } from "lucide-react";
 import { Bird } from "lucide-react";
 import { TicketCheck } from "lucide-react";
 import { Bell } from "lucide-react";
+import { Utensils } from "lucide-react";
+
 type NavLink = {
   href: string;
   title: string;
@@ -14,6 +16,12 @@ type NavLink = {
 };
 
 export const productCategroyLinks: NavLink[] = [
+  {
+    href: "/products",
+    title: "全部",
+    description: "全部商品",
+    icon: <Utensils />,
+  },
   {
     href: "/products/news",
     title: "新品",

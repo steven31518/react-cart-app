@@ -22,6 +22,7 @@ export default function OrderSearch() {
         <Input
           className="text-start text-lg my-auto border-0 p-4  focus-visible:ring-0 focus-visible:ring-offset-0"
           onChange={(e) => setSearch(e.target.value)}
+          placeholder="請輸入訂單編號"
         />
         <Button
           size="icon"
@@ -37,8 +38,8 @@ export default function OrderSearch() {
           搜尋
         </Button>
       </div>
-      <Separator className="mb-6"></Separator>
-      <div>{searchId && <OrderDetail searchParams={searchId} />}</div>
+      <Separator className="mb-6"/>
+      <div>{searchId ? <OrderDetail searchParams={searchId} />:"無查詢結果"}</div>
     </div>
   );
 }

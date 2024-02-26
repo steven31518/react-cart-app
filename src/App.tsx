@@ -22,6 +22,8 @@ const Detail = lazy(() => import("./pages/front/ProductPage"));
 const Order = lazy(() => import("./pages/front/OrderPage"));
 const OrderDetail = lazy(() => import("./pages/front/OrderDetailPage"));
 const Mail = lazy(() => import("./pages/front/ContactPage"));
+const CheckLayout = lazy(() => import("./pages/check/Layout"));
+const Payment = lazy(() => import("./pages/check/PaymentPage"));
 function App() {
   return (
     <Suspense>
@@ -34,13 +36,17 @@ function App() {
           <Route path="orders" element={<AdminOrder />} />
         </Route>
         <Route path="*" element={<Layout />}>
+          <Route path="products" element={<Store />} />
           <Route path="products/:category" element={<Store />} />
-          
-          <Route path="order-check" element={<OrderDetail />} />
+          <Route path="search" element={<OrderDetail />} />
           <Route path="product/:id" element={<Detail />} />
           <Route path="mail" element={<Mail />} />
         </Route>
-        <Route path="order" element={<Order />}></Route>
+        <Route path="order" element={<CheckLayout />}>
+          <Route path=":path" element={<Order />} />
+          <Route path=":path/:id" element={<Payment />} />
+          {/* <Route path="success/:id" element={<Order />} /> */}
+        </Route>
       </Routes>
     </Suspense>
   );
