@@ -24,6 +24,7 @@ const OrderDetail = lazy(() => import("./pages/front/OrderDetailPage"));
 const Mail = lazy(() => import("./pages/front/ContactPage"));
 const CheckLayout = lazy(() => import("./pages/check/Layout"));
 const Payment = lazy(() => import("./pages/check/PaymentPage"));
+
 function App() {
   return (
     <Suspense>

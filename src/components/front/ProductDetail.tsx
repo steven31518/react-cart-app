@@ -17,11 +17,9 @@ export default function ProductDetail({ id }: Props) {
     queryFn: () => api.client.getProductWithId(id ?? ""),
     select: (data) => data.product,
   });
-
   function pickMainImage(url: string) {
     setMainImageUrl(url);
   }
-
   if (isError) return <div>{error.message}</div>;
   if (isPending) return <div>Loading...</div>;
   if (isSuccess)

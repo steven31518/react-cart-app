@@ -56,7 +56,7 @@ export default function SheetWarp({ children, status }: Props) {
                 />
               </SheetClose>
               <SheetClose asChild>
-                <Link to="order">
+                <Link to="order/check">
                   <Button type="submit" size="icon" className="w-48">
                     <ClipboardList />
                     成立訂單

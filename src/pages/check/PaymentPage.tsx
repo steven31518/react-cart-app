@@ -1,9 +1,18 @@
 import OrderDetail from "@/components/front/OrderDetail";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function PaymentPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  if (!id) return navigate("/order/check");
+
+  if (!id)
+    return (
+      <div>
+        <p>無法取得付款資訊</p>
+        <Link to="/order/check" className="text-blue-500">
+          回到訂單
+        </Link>
+      </div>
+    );
   return (
     <div>
       <OrderDetail searchParams={id} />
