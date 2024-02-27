@@ -30,6 +30,7 @@ export default function ImageDropzone() {
     isDragActive,
   } = useDropzone({
     maxFiles: 10,
+    maxSize: 2 * 1000,
     accept: {
       "image/*": [],
     },
@@ -48,7 +49,7 @@ export default function ImageDropzone() {
     () => ({
       ...(isFocused && { "border-primary": isFocused }),
       ...(isDragReject && { "border-destructive": isDragReject }),
-      ...(isDragAccept && { "border-success": isDragAccept }),
+      ...(isDragAccept && { "border-green-500": isDragAccept }),
     }),
     [isFocused, isDragReject, isDragAccept]
   );
@@ -117,7 +118,7 @@ export default function ImageDropzone() {
         <div
           {...getRootProps({
             className: cn(
-              "dropzone rounded-lg border-2 w-full h-[100px] p-4",
+              "dropzone rounded-lg border-2 bg-background w-full h-[100px] p-4",
               style
             ),
           })}

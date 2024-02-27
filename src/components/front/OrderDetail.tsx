@@ -5,6 +5,7 @@ import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import PriceCard from "../PriceCard";
 import OrderForm from "./OrderForm";
+
 type Props = {
   searchParams: string;
 };

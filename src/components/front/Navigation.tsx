@@ -15,7 +15,7 @@ export function Navigation() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link to="order-check" className={navigationMenuTriggerStyle()}>
+          <Link to="search" className={navigationMenuTriggerStyle()}>
             <FileSearch />
             <span className="hidden lg:block">查詢訂單</span>
           </Link>
