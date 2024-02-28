@@ -19,7 +19,7 @@ type Props = {
 
 export default function DeleteButton({ id, deleteItem, label }: Props) {
   const queryClient = useQueryClient();
-  const { isPending, isSuccess, mutate } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationFn: (id: string) => {
       if (deleteItem === DeleteItem.Coupon) return api.admin.deleteCoupon(id);
       if (deleteItem === DeleteItem.Order) return api.admin.deleteOrder(id);
@@ -68,14 +68,11 @@ export default function DeleteButton({ id, deleteItem, label }: Props) {
     >
       <div className="text-center flex flex-col items-center justify-center gap-4">
         <p>{`確認刪除${label}?`}</p>
-        {isSuccess && <p className="text-green-500">已刪除成功</p>}
         <div className="flex justify-center mt-4">
           <DialogClose asChild>
             <Button
               variant="destructive"
-              className={cn("w-48", {
-                hidden: isSuccess,
-              })}
+              className={cn("w-48")}
               disabled={isPending}
               onClick={() => mutate(id)}
             >

@@ -1,7 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api";
+import LoadingPage from "../LoadingPage";
 import DataTable from "./DataTable";
 import { coupon_columns } from "./TableColumn/coupons-columns";
-import { api } from "@/api";
-import { useQuery } from "@tanstack/react-query";
 
 export default function CouponTable() {
   const filter = [
@@ -19,7 +20,7 @@ export default function CouponTable() {
         };
       }),
   });
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <LoadingPage />;
   if (isError) return <div>{error.message}</div>;
   return (
     <div>

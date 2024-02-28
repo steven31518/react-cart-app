@@ -35,7 +35,7 @@ export default function CarouselSize({
               key={url}
               className={cn("basis-1/3", {
                 "basis-1/2": imageUrls.length < 3,
-                "basis-1/3": imageUrls.length >= 3,
+                "basis-1/4": imageUrls.length > 3,
               })}
             >
               <Card>

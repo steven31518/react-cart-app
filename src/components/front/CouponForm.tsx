@@ -40,7 +40,7 @@ export default function CouponInput() {
     mutate({ data: value });
   }
   return (
-    <DialogWrap name="輸入優惠卷" title="">
+    <DialogWrap name="輸入優惠" title="">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

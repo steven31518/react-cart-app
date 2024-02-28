@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
+import LoadingPage from "../LoadingPage";
 import DataTable from "./DataTable";
 import { products_columns } from "./TableColumn/products-columns";
 
@@ -16,16 +17,16 @@ export default function ProductTable() {
   ];
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   if (isError) {
     return <div>{error.message}</div>;
   }
   return (
-    <main className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       {isSuccess && (
         <DataTable columns={products_columns} data={data} filter={filter} />
       )}
-    </main>
+    </section>
   );
 }

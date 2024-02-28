@@ -3,15 +3,15 @@ import { lazy, Suspense } from "react";
 
 const DashBoard = lazy(() => import("./pages/admin/DashBoard"));
 const AdminProducts = lazy(
-  () => import("./pages/admin/prodocts/AdminProductsPage")
+  () => import("./pages/admin/AdminProductsPage")
 );
 const AdminCoupons = lazy(
-  () => import("./pages/admin/coupons/AdminCouponsPage")
+  () => import("./pages/admin/AdminCouponsPage")
 );
-const AdminOrder = lazy(() => import("./pages/admin/orders/AdminOrdersPage"));
+const AdminOrder = lazy(() => import("./pages/admin/AdminOrdersPage"));
 const Login = lazy(() => import("./pages/LoginPage"));
 const EditProduct = lazy(
-  () => import("./pages/admin/prodocts/EditProductPage")
+  () => import("./pages/admin/EditProductPage")
 );
 const Layout = lazy(() => import("./pages/front/Layout"));
 const Store = lazy(() => import("./pages/front/StorePage"));

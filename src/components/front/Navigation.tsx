@@ -9,7 +9,6 @@ import {
 import { Mail } from "lucide-react";
 import { FileSearch } from "lucide-react";
 import { ServerCog } from "lucide-react";
-
 export function Navigation() {
   return (
     <NavigationMenu>

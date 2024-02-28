@@ -15,7 +15,7 @@ export default function ArtWork({
   ...props
 }: ArtworkProps) {
   return (
-    <div className={cn("overflow-hidden rounded-md", className)} {...props}>
+    <div className={cn("overflow-hidden rounded-md flex items-center justify-center bg-primary", className)} {...props}>
       <img
         src={imageUrl}
         alt={imageUrl}

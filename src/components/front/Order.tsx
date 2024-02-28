@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
+import LoadingPage from "../LoadingPage";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import CouponInput from "./CouponForm";
@@ -18,7 +19,7 @@ export default function Order() {
       final_total: data.data.final_total,
     }),
   });
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <LoadingPage />;
   if (isError) return <div>{error.message}</div>;
   if (isSuccess)
     return (

@@ -15,53 +15,53 @@ import { api } from "@/api";
 import { UploadProduct } from "@/api/adim/products";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(1, {
+      message: "title must be at least 1 characters.",
+    })
+    .max(20, {
+      message: "title must be less than 10 characters.",
+    }),
+  category: z
+    .string()
+    .min(1, {
+      message: "category must be at least 1 characters.",
+    })
+    .max(10, {
+      message: "category must be less than 10 characters.",
+    }),
+  origin_price: z.number().min(1, {
+    message: "金額不得為負且須大於0.",
+  }),
+  price: z.number().min(1, {
+    message: "金額不得為負且須大於0.",
+  }),
+  unit: z
+    .string()
+    .min(1, {
+      message: "unit must be at least 1 characters.",
+    })
+    .max(5, {
+      message: "unit must be less than 5 characters.",
+    }),
+  description: z.string(),
+  content: z.string(),
+  is_enabled: z.number(),
+  imageUrl: z.string({ required_error: "請上傳圖片並選擇" }),
+  imagesUrl: z.array(z.string()),
+});
 type Prop = {
   id: "create" | string;
 };
 export default function ProductForm({ id }: Prop) {
-  const formSchema = z.object({
-    title: z
-      .string()
-      .min(1, {
-        message: "title must be at least 1 characters.",
-      })
-      .max(20, {
-        message: "title must be less than 10 characters.",
-      }),
-    category: z
-      .string()
-      .min(1, {
-        message: "category must be at least 1 characters.",
-      })
-      .max(10, {
-        message: "category must be less than 10 characters.",
-      }),
-    origin_price: z.number().min(1, {
-      message: "金額不得為負且須大於0.",
-    }),
-    price: z.number().min(1, {
-      message: "金額不得為負且須大於0.",
-    }),
-    unit: z
-      .string()
-      .min(1, {
-        message: "unit must be at least 1 characters.",
-      })
-      .max(5, {
-        message: "unit must be less than 5 characters.",
-      }),
-    description: z.string(),
-    content: z.string(),
-    is_enabled: z.number(),
-    imageUrl: z.string({ required_error: "請上傳圖片並選擇" }),
-    imagesUrl: z.array(z.string()),
-  });
   const { imageUrls, mainImageUrl, removeAllImage, addImage, pickMainImage } =
     useImageDropzoneStore();
 
   const queryClient = useQueryClient();
-
+  const navigate = useNavigate();
   const { data: product } = useQuery({
     queryKey: ["getAllProducts", { type: "admin" }],
     queryFn: () => api.admin.getAdminProducts(),
@@ -80,7 +80,7 @@ export default function ProductForm({ id }: Prop) {
       description: product?.description || "",
       content: product?.content || "",
       is_enabled: product?.is_enabled || 0,
-      imageUrl: mainImageUrl,
+      imageUrl: mainImageUrl || "",
       imagesUrl: imageUrls,
     },
     resetOptions: {
@@ -98,6 +98,7 @@ export default function ProductForm({ id }: Prop) {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      navigate("/admin/products");
     },
     onSettled: () => {
       queryClient.invalidateQueries({

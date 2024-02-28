@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api";
+import LoadingPage from "../LoadingPage";
 import SheetWarp from "../SheetWarp";
 import CountButton from "./CountButton";
 import CartDeleteButton from "./CartDeleteButton";
@@ -19,7 +20,7 @@ export default function Cart() {
   return (
     <SheetWarp status={data?.carts.length}>
       <div className="flex flex-col justify-center items-end max-w-lg mb-2">
-        {isPending && <div>Loading...</div>}
+        {isPending && <LoadingPage />}
         {isError && <div>{error.message}</div>}
         <div className="flex flex-col justify-center items-start gap-8 px-2 py-4 lg:gap-4">
           {isSuccess &&

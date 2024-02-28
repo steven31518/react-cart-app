@@ -7,7 +7,7 @@ export default function ProductEditor() {
   const { id } = useParams();
   if (!id) return <div>No data</div>;
   return (
-    <main className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       <BackButton />
       <section className="grid md:grid-cols-2 gap-8">
         <div>
@@ -15,6 +15,6 @@ export default function ProductEditor() {
         </div>
         <ProductForm id={id} />
       </section>
-    </main>
+    </section>
   );
 }

@@ -30,7 +30,7 @@ export default function ImageDropzone() {
     isDragActive,
   } = useDropzone({
     maxFiles: 10,
-    maxSize: 2 * 1000,
+    maxSize: 2 * 1000 * 1000,
     accept: {
       "image/*": [],
     },

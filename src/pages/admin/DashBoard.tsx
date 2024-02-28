@@ -47,7 +47,7 @@ export default function DashBoard() {
       </div>
       <div className="lg:col-span-5">
         <Navbar uid={data?.uid ?? ""} />
-        <div className="py-8 px-4 sm:px-8 lg:px-16 ">
+        <div className="container py-8">
           <Outlet />
         </div>
       </div>
