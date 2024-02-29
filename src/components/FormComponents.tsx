@@ -27,9 +27,15 @@ type CustomFormFieldProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   className?: string;
+  handleInputFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-function CustomFormField({ name, control, label }: CustomFormFieldProps) {
+function CustomFormField({
+  name,
+  control,
+  label,
+  handleInputFocus,
+}: CustomFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -38,7 +44,7 @@ function CustomFormField({ name, control, label }: CustomFormFieldProps) {
         <FormItem>
           <FormLabel className="capitalize">{label}</FormLabel>
           <FormControl>
-            <Input {...field} />
+            <Input {...field} onFocus={handleInputFocus} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -193,5 +199,5 @@ export {
   CustomFormFieldNum,
   CustomFormFieldTextArea,
   CustomFormFieldSwitch,
-  CustomFormFieldCalendar
+  CustomFormFieldCalendar,
 };

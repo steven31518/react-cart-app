@@ -78,7 +78,7 @@ export default function OrderForm({ userData }: Props) {
       form.reset();
       setSearchParams((pre) => {
         pre.set("id", data.orderId ?? "");
-        pre.set("stage", "payment");
+        pre.set("stage", "paymentCheck");
         return pre;
       });
     },

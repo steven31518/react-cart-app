@@ -11,6 +11,7 @@ import { Bs3Circle } from "react-icons/bs";
 import { useSearchParams } from "react-router-dom";
 import Order from "@/components/front/Order";
 import OrderDetail from "@/components/front/OrderDetail";
+import PaymentForm from "@/components/front/PaymentForm";
 
 export default function OrderCheckPage() {
   const searchParams = useSearchParams()[0];
@@ -46,8 +47,13 @@ export default function OrderCheckPage() {
       </div>
       <div>
         {!stage && <Order />}
-        {id && (stage === "payment" || stage === "success") && (
+        {id && (stage === "paymentCheck" || stage === "success") && (
           <OrderDetail searchParams={id} />
+        )}
+        {id && stage === "payment" && (
+          <div className="">
+            <PaymentForm />
+          </div>
         )}
       </div>
     </section>

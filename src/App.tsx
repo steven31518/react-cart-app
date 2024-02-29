@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
+const Loading = lazy(() => import("./components/LoadingPage"));
 const Home = lazy(() => import("./pages/Home"));
 const DashBoard = lazy(() => import("./pages/admin/DashBoard"));
 const AdminProducts = lazy(() => import("./pages/admin/AdminProductsPage"));
@@ -17,9 +18,8 @@ const OrderCheck = lazy(() => import("./pages/check/OrderCheckPage"));
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <Routes>
-        <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
 
         <Route path="admin/*" element={<DashBoard />}>
@@ -29,11 +29,12 @@ function App() {
           <Route path="orders" element={<AdminOrder />} />
         </Route>
         <Route path="*" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path="products" element={<Store />} />
           <Route path="products/:category" element={<Store />} />
           <Route path="search" element={<OrderDetail />} />
           <Route path="product/:id" element={<Detail />} />
-          <Route path="mail" element={<Mail />} />
+          <Route path="email" element={<Mail />} />
         </Route>
         <Route path="order" element={<OrderCheck />}></Route>
       </Routes>

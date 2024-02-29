@@ -33,7 +33,7 @@ export default function ClientSidebar() {
                     key={link.href}
                     className="flex items-center gap-x-2 w-full"
                   >
-                    <Button variant={"link"} className="w-36" size="lg">
+                    <Button variant={"link"} className="w-36 p-6" size="lg">
                       {link.icon}
                       <span className="capitalize ms-2">{link.title}</span>
                     </Button>

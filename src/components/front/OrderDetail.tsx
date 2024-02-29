@@ -29,7 +29,7 @@ export default function OrderDetail({ searchParams }: Props) {
               {data.order.is_paid ? (
                 <p className="text-green-500">已付款</p>
               ) : (
-                <Link className="text-blue-500" to={`/pay/${searchParams}`}>
+                <Link className="text-blue-500" to={`/order?id=${searchParams}&stage=payment`}>
                   點我前往付款
                 </Link>
               )}

@@ -1,6 +1,4 @@
 import type { ColumnDef } from "@tanstack/react-table";
-// import { ArrowUpDown } from "lucide-react";
-// import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import { XCircle } from "lucide-react";
 import { DialogWrap } from "@/components/DialogWrap";
@@ -44,7 +42,7 @@ export const order_columns: ColumnDef<OrderColums>[] = [
       return (
         <div className="">
           <DialogWrap
-            name={`查看明細`}
+            name={`${row.original.user.name}`}
             className="max-w-4xl"
             title={`編號:${row.original.id}`}
           >

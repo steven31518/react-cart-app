@@ -44,7 +44,7 @@ export default function Store() {
           <p className="opacity-75">{description}</p>
         </div>
         <Separator className="my-6" />
-        <div className="grid sm:grid-cols-2 md:grid-col-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-4 lg:gap-4">
+        <div className="grid sm:grid-cols-3 md:grid-col-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-4 sm:gap-1 lg:gap-4">
           {data.products.reverse().map((product) => {
             return <ProductCard key={product.id} data={product} />;
           })}
