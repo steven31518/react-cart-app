@@ -24,6 +24,7 @@ export default function CouponInput() {
     mutationFn: ({ data: data }: Record<"data", CouponCode>) =>
       api.client.userCoupon({ data: data }),
     onError: (error) => {
+      console.log(error);
       toast.error(error.message);
     },
     onSuccess: (data) => {
@@ -40,7 +41,7 @@ export default function CouponInput() {
     mutate({ data: value });
   }
   return (
-    <DialogWrap name="輸入優惠" title="">
+    <DialogWrap name="輸入優惠卷" title="試看看 code8888">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -140,3 +140,18 @@ export function getOrderWithId(apiPath: string) {
     return validate.data;
   };
 }
+
+export function payOrder(apiPath: string) {
+  return async (id: string) => {
+    const response = await axios<z.infer<typeof UploadSuccessSchema>>({
+      url: `/v2/api/${apiPath}/pay/${id}`,
+      method: "POST",
+    });
+    console.log("pay", response.data);
+    const validate = UploadSuccessSchema.safeParse(response.data);
+    if (!validate.success) {
+      throw new Error(validate.error.message);
+    }
+    return validate.data;
+  };
+}

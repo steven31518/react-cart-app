@@ -8,10 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { Bs1Circle } from "react-icons/bs";
 import { Bs2Circle } from "react-icons/bs";
 import { Bs3Circle } from "react-icons/bs";
+import { Bs4Circle } from "react-icons/bs";
 import { useSearchParams } from "react-router-dom";
 import Order from "@/components/front/Order";
 import OrderDetail from "@/components/front/OrderDetail";
 import PaymentForm from "@/components/front/PaymentForm";
+import PayDoneMsg from "@/components/front/PayDoneMsg";
 
 export default function OrderCheckPage() {
   const searchParams = useSearchParams()[0];
@@ -30,32 +32,54 @@ export default function OrderCheckPage() {
             </NavigationMenuItem>
             <Separator className="w-1/2" />
             <NavigationMenuItem>
-              <Button className="rounded-full" disabled={stage !== "payment"}>
+              <Button
+                className="rounded-full"
+                disabled={stage !== "paymentCheck"}
+              >
                 <Bs2Circle />
+                <span className="hidden lg:block">成立訂單</span>
+              </Button>
+            </NavigationMenuItem>
+            <Separator className="w-1/2" />
+            <NavigationMenuItem>
+              <Button
+                className="rounded-full"
+                disabled={stage !== "payment"}
+              >
+                <Bs3Circle />
                 <span className="hidden lg:block">訂單付款</span>
               </Button>
             </NavigationMenuItem>
             <Separator className="w-1/2" />
             <NavigationMenuItem>
               <Button className="rounded-full" disabled={stage !== "success"}>
-                <Bs3Circle />
+                <Bs4Circle />
                 <span className="hidden lg:block">付款完成</span>
               </Button>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div>
+      <section>
         {!stage && <Order />}
-        {id && (stage === "paymentCheck" || stage === "success") && (
-          <OrderDetail searchParams={id} />
-        )}
-        {id && stage === "payment" && (
-          <div className="">
-            <PaymentForm />
+        {id && stage === "success" && (
+          <div className="container">
+            <PayDoneMsg id={id} />
+            <Separator className="my-6" />
           </div>
         )}
-      </div>
+        {id && stage === "payment" && (
+          <div className="container">
+            <h1 className="text-4xl font-semibold mb-6">訂單付款</h1>
+            <PaymentForm id={id} />
+            <Separator className="my-6" />
+          </div>
+        )}
+        {id &&
+          (stage === "paymentCheck" ||
+            stage === "success" ||
+            stage === "payment") && <OrderDetail searchParams={id} />}
+      </section>
     </section>
   );
 }

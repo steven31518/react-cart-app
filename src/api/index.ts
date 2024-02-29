@@ -23,7 +23,13 @@ import {
   deleteCartItem,
   deleteCart,
 } from "./cart";
-import { addOrder, getOrders, deleteOrder, getOrderWithId } from "./adim/order";
+import {
+  addOrder,
+  getOrders,
+  deleteOrder,
+  getOrderWithId,
+  payOrder,
+} from "./adim/order";
 const apiPath: string = import.meta.env.VITE_API_PATH;
 
 export const api = {
@@ -57,5 +63,6 @@ export const api = {
     userCoupon: userCoupon(apiPath),
     addOrder: addOrder(apiPath),
     getOrderWithId: getOrderWithId(apiPath),
+    payOrder: payOrder(apiPath),
   },
 };

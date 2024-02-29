@@ -3,11 +3,15 @@ import ArtWork from "./ArtWork";
 import { Badge } from "./ui/badge";
 export default function PriceCard({ data }: { data: Cart }) {
   return (
-    <div className="grid grid-cols-5 gap-4 px-4" key={data.id}>
+    <div className="grid sm:grid-cols-5 gap-4 px-4" key={data.id}>
       <div className="col-span-2">
-        <ArtWork aspectRatio="square" imageUrl={data.product.imageUrl} />
+        <ArtWork
+          aspectRatio="square"
+          imageUrl={data.product.imageUrl}
+          className=""
+        />
       </div>
-      <div className="col-span-3 flex flex-col items-start justify-end gap-4">
+      <div className="col-span-3 flex flex-col items-start justify-center gap-4 ">
         <p>{`品項: ${data.product.title}`}</p>
 
         {data.coupon?.id ? (

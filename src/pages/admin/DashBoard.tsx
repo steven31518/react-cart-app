@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "@/components/admin/Sidebar";
-import Navbar from "@/components/admin/Navbar";
-import { api } from "@/api";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { api } from "@/api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Sidebar from "@/components/admin/Sidebar";
+import Navbar from "@/components/admin/Navbar";
+import toast from "react-hot-toast";
+import LoadingPage from "@/components/LoadingPage";
 
 export default function DashBoard() {
   const navigate = useNavigate();
@@ -16,7 +17,6 @@ export default function DashBoard() {
     ?.split("=")[1];
 
   axios.defaults.headers.common["Authorization"] = token;
-  
 
   if (!token) navigate("/login");
 
@@ -37,7 +37,7 @@ export default function DashBoard() {
     mutate();
   }, [mutate]);
 
-  if (isPending) return <div>validating...</div>;
+  if (isPending) return <LoadingPage />;
   return (
     <main className="grid lg:grid-cols-6">
       <div className="hidden lg:block lg:col-span-1 lg:min-h-screen bg-muted">

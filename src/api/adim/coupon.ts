@@ -23,7 +23,7 @@ export type CouponRequest = z.infer<typeof CouponRequestSchema>;
 export type GetCouponResponse = z.infer<typeof getCouponSchema>;
 const CouponUseSchema = UploadSuccessSchema.extend({
   data: z.object({
-    final_tatol: z.number(),
+    final_total: z.number(),
   }),
 });
 
@@ -92,6 +92,7 @@ export function userCoupon(apiPath: string) {
       method: "POST",
       data: data,
     });
+    console.log(response.data);
     const validate = CouponUseSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);
