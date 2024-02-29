@@ -1,18 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
-
+const Home = lazy(() => import("./pages/Home"));
 const DashBoard = lazy(() => import("./pages/admin/DashBoard"));
-const AdminProducts = lazy(
-  () => import("./pages/admin/AdminProductsPage")
-);
-const AdminCoupons = lazy(
-  () => import("./pages/admin/AdminCouponsPage")
-);
+const AdminProducts = lazy(() => import("./pages/admin/AdminProductsPage"));
+const AdminCoupons = lazy(() => import("./pages/admin/AdminCouponsPage"));
 const AdminOrder = lazy(() => import("./pages/admin/AdminOrdersPage"));
 const Login = lazy(() => import("./pages/LoginPage"));
-const EditProduct = lazy(
-  () => import("./pages/admin/EditProductPage")
-);
+const EditProduct = lazy(() => import("./pages/admin/EditProductPage"));
 const Layout = lazy(() => import("./pages/front/Layout"));
 const Store = lazy(() => import("./pages/front/StorePage"));
 const Detail = lazy(() => import("./pages/front/ProductPage"));
@@ -25,7 +19,9 @@ function App() {
   return (
     <Suspense>
       <Routes>
+        <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
+
         <Route path="admin/*" element={<DashBoard />}>
           <Route path="products" element={<AdminProducts />} />
           <Route path="edit_product/:id" element={<EditProduct />} />

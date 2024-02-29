@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { BadgePlus } from "lucide-react";
-import { Flame } from "lucide-react";
-import { GlassWater } from "lucide-react";
-import { Soup } from "lucide-react";
-import { Bird } from "lucide-react";
+import { GiSmallFire } from "react-icons/gi";
+import { GiMeat } from "react-icons/gi";
+import { GiAnglerFish } from "react-icons/gi";
+import { GiCarnivorousPlant } from "react-icons/gi";
+import { GiCupcake } from "react-icons/gi";
 import { Bell } from "lucide-react";
-import { Utensils } from "lucide-react";
+import { GiBallPyramid } from "react-icons/gi";
 import { FileSearch } from "lucide-react";
 import meatsImg from "@/assets/img/Meats_General.webp";
 import fruitsImg from "@/assets/img/Fruits_Crock_Pot29.webp";
@@ -18,6 +18,60 @@ type NavLink = {
   icon?: ReactNode;
   description?: string;
 };
+
+export const productCategroyLinks: NavLink[] = [
+  {
+    href: "/products/hot",
+    title: "熱門料理",
+    description: "最多人購買的商品",
+    icon: <GiSmallFire size={20}/>,
+  },
+  {
+    href: "/products/meats",
+    title: "我要吃肉",
+    description: "各式肉類料理",
+    icon: <GiMeat size={20}/>,
+  },
+  {
+    href: "/products/seafood",
+    title: "我要吃魚",
+    description: "各式海鮮料理",
+    icon: <GiAnglerFish size={20}/>,
+  },
+  {
+    href: "/products/vegetarian",
+    title: "我要吃素",
+    description: "各式素食料理",
+    icon: <GiCarnivorousPlant size={20}/>,
+  },
+  {
+    href: "/products/desserts",
+    title: "我要甜點",
+    description: "各式甜點",
+    icon: <GiCupcake size={20}/>,
+  },
+  {
+    href: "/products",
+    title: "全部料理",
+    description: "全部商品",
+    icon: <GiBallPyramid size={20}/>,
+  },
+];
+
+export const discountLinks: NavLink[] = [
+  {
+    href: "/search",
+    title: "查詢訂單",
+    description: "輸入您的優惠卷代碼",
+    icon: <FileSearch />,
+  },
+  {
+    href: "/Promotions",
+    title: "最新優惠",
+    description: "最新上架的折扣商品",
+    icon: <Bell />,
+  },
+];
 
 export const transfromCategory = (val: string) => {
   switch (val) {
@@ -59,57 +113,3 @@ export const transfromCategory = (val: string) => {
       };
   }
 };
-
-export const productCategroyLinks: NavLink[] = [
-  {
-    href: "/products/hot",
-    title: "熱門料理",
-    description: "最多人購買的商品",
-    icon: <Flame />,
-  },
-  {
-    href: "/products/meats",
-    title: "我要吃肉",
-    description: "各式肉類料理",
-    icon: <Soup />,
-  },
-  {
-    href: "/products/seafood",
-    title: "我要吃魚",
-    description: "各式海鮮料理",
-    icon: <Bird />,
-  },
-  {
-    href: "/products/vegetarian",
-    title: "我要吃素",
-    description: "各式素食料理",
-    icon: <GlassWater />,
-  },
-  {
-    href: "/products/desserts",
-    title: "我要甜點",
-    description: "最新上架的商品",
-    icon: <BadgePlus />,
-  },
-  {
-    href: "/products",
-    title: "全部料理",
-    description: "全部商品",
-    icon: <Utensils />,
-  },
-];
-
-export const discountLinks: NavLink[] = [
-  {
-    href: "/search",
-    title: "查詢訂單",
-    description: "輸入您的優惠卷代碼",
-    icon: <FileSearch />,
-  },
-  {
-    href: "/Promotions",
-    title: "最新優惠",
-    description: "最新上架的折扣商品",
-    icon: <Bell />,
-  },
-];

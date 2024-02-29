@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SiIconfinder } from "react-icons/si";
 import { productCategroyLinks, discountLinks } from "@/utils/store-links";
 import {
   Accordion,
@@ -7,16 +8,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "../ui/button";
-import { SiGerrit } from "react-icons/si";
 
 export default function ClientSidebar() {
   return (
     <aside className="py-6 px-8 h-full fixed w-1/6">
       <Link to="/">
         <div className="flex items-center gap-4 px-4">
-          <SiGerrit className="w-10 h-10 text-primary" />
-          <h2 className="text-xl font-extrabold text-primary mr-auto">
-            PARROT
+          <SiIconfinder className="w-10 h-10 text-primary" />
+          <h2 className="text-2xl font-extrabold text-primary mr-auto">
+            別挨餓
           </h2>
         </div>
       </Link>

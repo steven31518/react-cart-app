@@ -7,6 +7,7 @@ import CarouselSize from "@/components/CarouselSize";
 import CountButton from "./CountButton";
 import { Separator } from "../ui/separator";
 import BackButton from "../BackButton";
+
 type Props = {
   id: string;
 };
@@ -27,6 +28,7 @@ export default function ProductDetail({ id }: Props) {
     return (
       <section className="container">
         <BackButton />
+
         <div className="grid grid-rows-[repeat(2,auto)] gap-x-4 gap-y-4">
           <div className="grid grid-rows-subgrid row-span-4 lg:row-span-2 px-2 lg:grid-cols-2 gap-4">
             <>
