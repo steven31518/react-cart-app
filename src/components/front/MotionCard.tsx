@@ -104,7 +104,7 @@ export default function MotionCard({
         <img src={characterImg} className="character" />
       </motion.div>
       <motion.div
-        className="text w-full absolute top-20 -translate-y-20"
+        className="text w-full absolute top-20 -translate-y-30"
         variants={textVariants}
       >
         <span className="text-lg font-semibold">{text}</span>

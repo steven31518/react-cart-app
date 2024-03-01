@@ -24,8 +24,8 @@ export default function Order() {
   if (isSuccess)
     return (
       <section className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div className="flex flex-col justify-start items-start max-w-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div className="flex flex-col justify-center items-start max-w-2xl">
             <h1 className="font-semibold text-4xl mb-6">購物明細</h1>
             <CouponInput />
             <ScrollArea className="h-[400px] mb-4 border rounded-md p-4">
