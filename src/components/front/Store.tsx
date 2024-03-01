@@ -45,12 +45,12 @@ export default function Store() {
         </div>
         <Separator className="my-6" />
         <div className="grid sm:grid-cols-3 md:grid-col-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-rows-[repeat(5,auto)] gap-4 sm:gap-1 lg:gap-4">
-          {data.products.reverse().map((product) => {
+          {data.products.map((product) => {
             return <ProductCard key={product.id} data={product} />;
           })}
         </div>
         {data.pagination.total_pages > 1 && (
-          <div className="flex justify-end items-center space-x-2 p-4">
+          <div className="flex justify-center items-center space-x-2 p-4">
             <Button
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
