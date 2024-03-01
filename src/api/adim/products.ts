@@ -66,7 +66,7 @@ export const getAdminPageProducts = (apiPath: string) => {
       url: `/v2/api/${apiPath}/admin/products?page=${page}&category=${category}`,
       method: "GET",
     });
-    console.log(response.data);
+
     const validate = getPageProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return validate.data;
@@ -79,7 +79,7 @@ export const getClientPageProducts = (apiPath: string) => {
       url: `/v2/api/${apiPath}/products?page=${page}&category=${category}`,
       method: "GET",
     });
-    console.log(response.data);
+
     const validate = getPageProductSchema.safeParse(response.data);
     if (!validate.success) throw new Error(validate.error.message);
     return validate.data;

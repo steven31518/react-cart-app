@@ -63,7 +63,7 @@ export function editCoupon(apiPath: string) {
       method: "PUT",
       data: { data },
     });
-    console.log(response.data);
+    
     const validate = UploadSuccessSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);
@@ -92,7 +92,7 @@ export function userCoupon(apiPath: string) {
       method: "POST",
       data: data,
     });
-    console.log(response.data);
+   
     const validate = CouponUseSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);

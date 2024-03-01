@@ -91,7 +91,7 @@ export function addOrder(apiPath: string) {
       to_name: data.user.name,
       to_mail: data.user.email,
     });
-    console.log(text);
+    if (!text) throw new Error("email send fail");
     return validate.data;
   };
 }
@@ -132,7 +132,7 @@ export function getOrderWithId(apiPath: string) {
       url: `/v2/api/${apiPath}/order/${id}`,
       method: "GET",
     });
-    console.log("client", response.data);
+
     const validate = OrderWithIdSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);
@@ -147,7 +147,7 @@ export function payOrder(apiPath: string) {
       url: `/v2/api/${apiPath}/pay/${id}`,
       method: "POST",
     });
-    console.log("pay", response.data);
+
     const validate = UploadSuccessSchema.safeParse(response.data);
     if (!validate.success) {
       throw new Error(validate.error.message);

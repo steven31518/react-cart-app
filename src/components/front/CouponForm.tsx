@@ -24,7 +24,6 @@ export default function CouponInput() {
     mutationFn: ({ data: data }: Record<"data", CouponCode>) =>
       api.client.userCoupon({ data: data }),
     onError: (error) => {
-      console.log(error);
       toast.error(error.message);
     },
     onSuccess: (data) => {

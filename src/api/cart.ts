@@ -88,10 +88,9 @@ export const getCart = (apiPath: string) => {
       url: `/v2/api/${apiPath}/cart`,
       method: "GET",
     });
-    console.log(response.data, "cart")
+
     const validate = GetCartSchema.safeParse(response.data);
     if (!validate.success) {
-      console.log(validate.error.message);
       throw new Error(validate.error.message);
     }
     return validate.data;

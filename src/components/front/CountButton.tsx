@@ -24,15 +24,13 @@ export default function CountButton({
   id,
   isUseDebounce,
 }: Props) {
-  const [countQty, setcountQty] = useState<number>(qty??1);
+  const [countQty, setcountQty] = useState<number>(qty ?? 1);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: (data: PostCart) => {
       if (!isUseDebounce) {
-        console.log("post")
         return api.client.postToCart(data);
       } else {
-        console.log("put")
         return api.client.putCart(data);
       }
     },
