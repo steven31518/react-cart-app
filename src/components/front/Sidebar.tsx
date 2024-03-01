@@ -15,7 +15,7 @@ export default function ClientSidebar() {
       <Link to="/">
         <div className="flex items-center gap-4 px-4">
           <SiIconfinder className="w-10 h-10 text-primary" />
-          <h2 className="text-2xl font-extrabold text-primary mr-auto">
+          <h2 className="text-xl font-extrabold text-primary mr-auto">
             別挨餓
           </h2>
         </div>
