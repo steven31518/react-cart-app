@@ -21,7 +21,7 @@ export default function OrderCheckPage() {
   const id = searchParams.get("id");
   return (
     <section>
-      <div className="flex items-center justify-center py-8 mb-6 max-w-sm">
+      <div className="flex items-center justify-center py-8 mb-6">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -30,7 +30,7 @@ export default function OrderCheckPage() {
                 <span className="hidden lg:block">確認訂單</span>
               </Button>
             </NavigationMenuItem>
-            <Separator className="w-1/2" />
+            <Separator className="w-10 lg:w-1/2" />
             <NavigationMenuItem>
               <Button
                 className="rounded-full"
@@ -40,17 +40,14 @@ export default function OrderCheckPage() {
                 <span className="hidden lg:block">成立訂單</span>
               </Button>
             </NavigationMenuItem>
-            <Separator className="w-1/2" />
+            <Separator className="w-10  lg:w-1/2" />
             <NavigationMenuItem>
-              <Button
-                className="rounded-full"
-                disabled={stage !== "payment"}
-              >
+              <Button className="rounded-full" disabled={stage !== "payment"}>
                 <Bs3Circle />
                 <span className="hidden lg:block">訂單付款</span>
               </Button>
             </NavigationMenuItem>
-            <Separator className="w-1/2" />
+            <Separator className="w-10  lg:w-1/2" />
             <NavigationMenuItem>
               <Button className="rounded-full" disabled={stage !== "success"}>
                 <Bs4Circle />
