@@ -18,7 +18,7 @@ export default function PayDoneMsg({ id }: { id: string }) {
             <strong>{`我們將會盡快出貨，請留著訂單編號: ${id}，方便日後查詢狀態。`}</strong>
             <br />
           </p>
-          <div className="grid grid-cols-2 gap-4 mt-8 max-w-sm">
+          <div className="grid lg:grid-cols-2 gap-4 mt-8 max-w-sm">
             <Link to="/products" className="grid w-full py-4">
               <MotionCard
                 characterImg={characterImgB}
