@@ -21,7 +21,7 @@ export default function OrderCheckPage() {
   const id = searchParams.get("id");
   return (
     <section>
-      <div className="flex items-center justify-center py-8  mb-6">
+      <div className="flex items-center justify-center py-8 mb-6 max-w-sm">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

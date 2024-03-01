@@ -21,7 +21,7 @@ export default function Home() {
             因喜歡Don't
             Strave這款遊戲的美術風格，也想紀錄一些遊戲內常用的食譜，網站內的素材來源皆為網路上的免費素材。如有侵權請來信告知，將立即移除。
           </p>
-          <div className="grid grid-cols-2 gap-4 mt-24">
+          <div className="grid grid-cols-2 gap-4 mt-24 max-w-sm">
             <Link to="/products" className="grid w-full py-4">
               <MotionCard
                 characterImg={characterImgB}

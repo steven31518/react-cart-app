@@ -103,15 +103,6 @@ export default function PaymentForm({ id }: { id: string }) {
   }
   return (
     <div className="grid lg:grid-cols-2 gap-4">
-      <div className="place-self-center">
-        <Cards
-          number={watch.number}
-          expiry={watch.expiry}
-          cvc={watch.cvc}
-          name={watch.name}
-          focused={focus}
-        />
-      </div>
       <div className="">
         <Form {...form}>
           <form
@@ -158,6 +149,15 @@ export default function PaymentForm({ id }: { id: string }) {
             </div>
           </form>
         </Form>
+      </div>
+      <div className="place-self-center">
+        <Cards
+          number={watch.number}
+          expiry={watch.expiry}
+          cvc={watch.cvc}
+          name={watch.name}
+          focused={focus}
+        />
       </div>
     </div>
   );

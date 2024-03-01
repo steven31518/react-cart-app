@@ -20,7 +20,7 @@ export function Navigation() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link to="mail" className={navigationMenuTriggerStyle()}>
+          <Link to="email" className={navigationMenuTriggerStyle()}>
             <Mail />
             <span className="hidden lg:block">意見反應</span>
           </Link>
