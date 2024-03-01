@@ -82,7 +82,7 @@ export default function MotionCard({
   return (
     <motion.div
       className={cn(
-        "card flex justify-center items-end relative py-0 px-[36px] my-0  w-[160px] h-[160px] cursor-pointer",
+        "card flex justify-center items-end relative py-0 px-[36px] my-0  w-[200px] h-[200px] cursor-pointer",
         className
       )}
       style={{ perspective: "1000px" }}
